@@ -145,8 +145,9 @@ section{margin-bottom:38px}
 .protocol li.ep{border-color:var(--teal);color:var(--teal)}
 
 /* ---- sub-stage heading inside the worked example ---- */
-.substage{display:flex;align-items:baseline;gap:12px;margin:34px 0 13px}
+.substage{display:flex;align-items:baseline;gap:12px;margin:34px 0 13px;flex-wrap:wrap}
 .substage:first-of-type{margin-top:22px}
+.substage h3{flex:1 1 auto;min-width:0}
 .substage .sn{
   font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;
   color:#fff;background:var(--teal);border-radius:2px;padding:3px 8px;flex:none;
@@ -364,6 +365,94 @@ input[type=checkbox]{width:16px;height:16px;margin:3px 0 0;accent-color:var(--te
   .cs-row{grid-template-columns:24px 1fr auto;row-gap:7px}
   .cs-track{grid-column:1/-1}
   .cs-ev,.cs-ratio,.cs-verdict{text-align:left}
+}
+
+/* ---- downstream analysis panels (modules 4, 6, 7, 8) ---- */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:900px){.panels{grid-template-columns:1fr}}
+.pbox{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:16px 18px 18px;display:flex;flex-direction:column;
+}
+.pb-head{display:flex;align-items:baseline;gap:9px;margin-bottom:3px}
+.pb-num{
+  font-family:var(--font-num);font-size:11px;color:#fff;background:var(--teal);
+  border-radius:2px;padding:2px 6px;font-weight:700;flex:none;
+}
+.pb-head h4{margin:0;font-size:14.5px;font-weight:700;letter-spacing:-.01em}
+.pb-sub{font-size:11.5px;color:var(--muted);margin-bottom:13px}
+.pb-note{font-size:11.5px;color:var(--ink-2);line-height:1.55;margin-top:12px;padding-top:11px;
+  border-top:1px solid var(--line)}
+.pb-note b{font-weight:700;color:var(--ink)}
+
+/* module 4: first-line regimen mix */
+.soc-row{display:grid;grid-template-columns:96px minmax(0,1fr) 56px;gap:10px;align-items:center;margin-bottom:7px}
+.soc-name{font-size:12px;font-weight:650;color:var(--ink-2)}
+.soc-bar{display:flex;height:16px;border-radius:2px;overflow:hidden;background:var(--surface-2)}
+.soc-bar i{display:block;transition:flex-basis .3s cubic-bezier(.4,0,.2,1)}
+.soc-bar .g0{background:var(--teal)}
+.soc-bar .g1{background:var(--green)}
+.soc-bar .g2{background:var(--amber)}
+.soc-bar .g3{background:var(--line-strong)}
+.soc-ttn{font-family:var(--font-num);font-size:11px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.soc-key{display:flex;gap:12px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);margin-top:9px}
+.soc-key i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+
+/* module 6: forest plot */
+.forest{margin-top:2px}
+.fr-row{display:grid;grid-template-columns:96px minmax(0,1fr) 104px;gap:10px;align-items:center;margin-bottom:8px}
+.fr-name{font-size:12px;font-weight:650;color:var(--ink-2)}
+.fr-track{position:relative;height:16px}
+.fr-track::before{
+  content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line);
+}
+.fr-null{position:absolute;top:0;bottom:0;width:1px;background:var(--line-strong)}
+.fr-ci{position:absolute;top:50%;height:2px;background:var(--teal);transform:translateY(-50%);border-radius:1px}
+.fr-pt{position:absolute;top:50%;width:8px;height:8px;background:var(--teal);border-radius:50%;transform:translate(-50%,-50%)}
+.fr-row.pooled .fr-ci{background:var(--green);height:3px}
+.fr-row.pooled .fr-pt{background:var(--green);width:10px;height:10px}
+.fr-row.pooled .fr-name{color:var(--green);font-weight:750}
+.fr-val{font-family:var(--font-num);font-size:11px;color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
+.fr-axis{display:grid;grid-template-columns:96px minmax(0,1fr) 104px;gap:10px;margin-top:2px}
+.fr-ticks{position:relative;height:14px;font-family:var(--font-num);font-size:10px;color:var(--muted)}
+.fr-ticks span{position:absolute;transform:translateX(-50%)}
+
+/* module 7: covariate balance */
+.bal-row{display:grid;grid-template-columns:112px minmax(0,1fr) 46px;gap:10px;align-items:center;margin-bottom:7px}
+.bal-name{font-size:12px;color:var(--ink-2)}
+.bal-track{position:relative;height:14px;background:var(--surface-2);border-radius:2px}
+.bal-thresh{position:absolute;top:-2px;bottom:-2px;width:1px;background:var(--amber)}
+.bal-pre,.bal-post{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);transition:left .3s}
+.bal-pre{background:var(--line-strong);border:1px solid var(--muted)}
+.bal-post{background:var(--teal)}
+.bal-v{font-family:var(--font-num);font-size:11px;color:var(--teal);text-align:right;font-variant-numeric:tabular-nums}
+.bal-key{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);margin-top:9px}
+.bal-key i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.bal-key .kpre i{background:var(--line-strong);border:1px solid var(--muted)}
+.bal-key .kpost i{background:var(--teal)}
+.bal-key .kth i{background:var(--amber);width:2px;height:10px;border-radius:0}
+
+/* module 8: transportability */
+.tp-row{display:grid;grid-template-columns:96px minmax(0,1fr) 52px;gap:10px;align-items:center;margin-bottom:7px}
+.tp-name{font-size:12px;font-weight:650;color:var(--ink-2)}
+.tp-track{height:14px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+.tp-track i{display:block;height:100%;width:calc(var(--f,0)*100%);background:var(--amber);transition:width .3s}
+.tp-row.near .tp-track i{background:var(--green)}
+.tp-row.near .tp-name{color:var(--green);font-weight:750}
+.tp-v{font-family:var(--font-num);font-size:11px;color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
+
+/* narrow screens: every fixed-width column in the panels stacks rather than
+   squeezing, and the bars take the full row */
+@media (max-width:560px){
+  .soc-row,.tp-row{grid-template-columns:minmax(0,1fr) auto;row-gap:5px}
+  .soc-bar,.tp-track{grid-column:1/-1}
+  .bal-row{grid-template-columns:minmax(0,1fr) auto;row-gap:5px}
+  .bal-track{grid-column:1/-1}
+  .fr-row,.fr-axis{grid-template-columns:minmax(0,1fr);row-gap:4px}
+  .fr-val{text-align:left}
+  .fr-axis > span{display:none}
+  .fr-row{margin-bottom:14px}
+  .soc-ttn,.tp-v,.bal-v{text-align:left}
 }
 
 /* ---- expandable notes ---- */
@@ -634,6 +723,50 @@ footer{
         </div>
       </aside>
     </div>
+
+    <div class="substage">
+      <span class="sn">Stage 2</span>
+      <h3>Downstream analyses on the same cohort</h3>
+      <span class="rule"></span>
+      <span class="hint">modules 4, 6, 7 and 8</span>
+    </div>
+    <p class="sub-intro">Everything below is computed from the cohort defined above, so it moves when the protocol does. Tighten a criterion and the confidence intervals widen, because precision is bought with events rather than with patients.</p>
+
+    <div class="panels">
+      <div class="pbox">
+        <div class="pb-head"><span class="pb-num">4</span><h4>Treatment pathways and standard of care</h4></div>
+        <p class="pb-sub">First-line regimen mix, and median months to the next line</p>
+        <div id="soc"></div>
+        <div class="soc-key" id="soc-key"></div>
+        <p class="pb-note" id="soc-note"></p>
+      </div>
+
+      <div class="pbox">
+        <div class="pb-head"><span class="pb-num">6</span><h4>Comparative analysis</h4></div>
+        <p class="pb-sub">Hazard ratio against the active comparator, by database</p>
+        <div class="forest" id="forest"></div>
+        <p class="pb-note" id="forest-note"></p>
+      </div>
+
+      <div class="pbox">
+        <div class="pb-head"><span class="pb-num">7</span><h4>External comparator alignment</h4></div>
+        <p class="pb-sub">Standardised mean difference against the trial arm, before and after weighting</p>
+        <div id="bal"></div>
+        <div class="bal-key">
+          <span class="kpre"><i></i>unweighted</span>
+          <span class="kpost"><i></i>after weighting</span>
+          <span class="kth"><i></i>0.10 threshold</span>
+        </div>
+        <p class="pb-note" id="bal-note"></p>
+      </div>
+
+      <div class="pbox">
+        <div class="pb-head"><span class="pb-num">8</span><h4>Transportability</h4></div>
+        <p class="pb-sub">Distance of each eligible cohort from the intended target population</p>
+        <div id="tp"></div>
+        <p class="pb-note" id="tp-note"></p>
+      </div>
+    </div>
   </section>
 
   <!-- ============ 3. Five questions ============ -->
@@ -684,16 +817,33 @@ footer{
    Stage 2 retention fractions further down. */
 var COUNTRIES = [
   { id:"tw", name:"Taiwan",    db:"NHIRD",     covered: 23.6e6, base:  99000,
-    cap:{scale:2, dx:2, rx:2, lab:1, stage:0, hosp:2, death:2, long:2} },
+    cap:{scale:2, dx:2, rx:2, lab:1, stage:0, hosp:2, death:2, long:2},
+    soc:[42,28,18,12], ttn:14, hr:0.78, dist:0.14 },
   { id:"kr", name:"Korea",     db:"NHIS-NHID", covered: 51.4e6, base: 162500,
-    cap:{scale:2, dx:2, rx:2, lab:2, stage:0, hosp:2, death:2, long:2} },
+    cap:{scale:2, dx:2, rx:2, lab:2, stage:0, hosp:2, death:2, long:2},
+    soc:[61,18,12, 9], ttn:11, hr:0.82, dist:0.31 },
   { id:"jp", name:"Japan",     db:"NDB",       covered:124.0e6, base: 422000,
-    cap:{scale:2, dx:2, rx:2, lab:1, stage:0, hosp:2, death:1, long:1} },
+    cap:{scale:2, dx:2, rx:2, lab:1, stage:0, hosp:2, death:1, long:1},
+    soc:[35,34,20,11], ttn:16, hr:0.75, dist:0.22 },
   { id:"hk", name:"Hong Kong", db:"CDARS",     covered:  7.4e6, base:  33000,
-    cap:{scale:1, dx:2, rx:2, lab:2, stage:1, hosp:2, death:2, long:1} },
+    cap:{scale:1, dx:2, rx:2, lab:2, stage:1, hosp:2, death:2, long:1},
+    soc:[48,25,17,10], ttn:13, hr:0.80, dist:0.19 },
   { id:"th", name:"Thailand",  db:"HDC",       covered: 47.0e6, base: 127000,
-    cap:{scale:1, dx:2, rx:2, lab:2, stage:0, hosp:2, death:1, long:1} }
+    cap:{scale:1, dx:2, rx:2, lab:2, stage:0, hosp:2, death:1, long:1},
+    soc:[29,22,14,35], ttn:19, hr:0.85, dist:0.44 }
 ];
+
+/* Module 4: first-line regimen classes, and Module 7: covariate balance
+   for an external comparator, before and after weighting. */
+var REGIMENS = ["Regimen class A", "Regimen class B", "Regimen class C", "Other or none"];
+var BALANCE = [
+  { label:"Age at index",          pre:0.42, post:0.04 },
+  { label:"Sex",                   pre:0.08, post:0.02 },
+  { label:"Prior lines of therapy",pre:0.51, post:0.06 },
+  { label:"eGFR",                  pre:0.33, post:0.05 },
+  { label:"Comorbidity index",     pre:0.29, post:0.03 }
+];
+var ESS_FRAC = 0.62;   /* effective sample size retained after weighting */
 
 /* The Stage 1 screening dimensions. `on` is the default protocol requirement. */
 var CAPS = [
@@ -1290,6 +1440,7 @@ function render(){
   renderCap();
   renderCard(net);
   renderCallout(net);
+  renderPanels(net);
   renderQA(net);
   buildDisclosure();
   document.getElementById("p-ep").textContent = "Endpoint: " + endpointObj().label.toLowerCase();
@@ -1388,6 +1539,160 @@ function renderCallout(net){
     p2.appendChild(document.createTextNode(" — the funnel that costs the most patients is rarely the funnel that costs the most events."));
   }
   host.appendChild(p2);
+}
+
+/* ---- modules 4, 6, 7, 8: everything downstream of the cohort ---- */
+var FR_LO = 0.5, FR_HI = 1.3;
+function frPos(x){ return (Math.log(x)-Math.log(FR_LO)) / (Math.log(FR_HI)-Math.log(FR_LO)) * 100; }
+
+function renderPanels(net){
+  var rows = net.rows;
+
+  /* --- module 4: first-line regimen mix --- */
+  var soc = document.getElementById("soc");
+  soc.textContent = "";
+  rows.forEach(function(f){
+    var r = el("div", "soc-row");
+    r.appendChild(el("span", "soc-name", f.c.name));
+    var bar = el("div", "soc-bar");
+    f.c.soc.forEach(function(v, i){
+      var seg = el("i", "g" + i);
+      seg.style.flex = "0 0 " + v + "%";
+      seg.title = REGIMENS[i] + ": " + v + "%";
+      bar.appendChild(seg);
+    });
+    r.appendChild(bar);
+    r.appendChild(el("span", "soc-ttn", f.c.ttn + " mo"));
+    soc.appendChild(r);
+  });
+  var key = document.getElementById("soc-key");
+  key.textContent = "";
+  REGIMENS.forEach(function(lbl, i){
+    var s = el("span", "k" + i);
+    var ic = el("i"); ic.className = "";
+    ic.style.background = ["var(--teal)","var(--green)","var(--amber)","var(--line-strong)"][i];
+    s.appendChild(ic); s.appendChild(document.createTextNode(lbl));
+    key.appendChild(s);
+  });
+  var socNote = document.getElementById("soc-note");
+  socNote.textContent = "";
+  if(rows.length){
+    var hiA = rows.slice().sort(function(a,b){ return b.c.soc[0]-a.c.soc[0]; })[0];
+    var loA = rows.slice().sort(function(a,b){ return a.c.soc[0]-b.c.soc[0]; })[0];
+    socNote.appendChild(document.createTextNode("Class A is first-line for "));
+    socNote.appendChild(el("b", null, hiA.c.soc[0] + "% of patients in " + hiA.c.name));
+    socNote.appendChild(document.createTextNode(" but " + loA.c.soc[0] + "% in " + loA.c.name +
+      ". An active-comparator trial against class A therefore means a different thing in each country, and the same protocol sentence buys a different comparison."));
+  }
+
+  /* --- module 6: forest plot, precision driven by expected events --- */
+  var host = document.getElementById("forest");
+  host.textContent = "";
+  var pts = rows.map(function(f){
+    var se = f.events > 0 ? 2/Math.sqrt(f.events) : 1;
+    return { name:f.c.name, hr:f.c.hr, se:se,
+             lo:f.c.hr*Math.exp(-1.96*se), hi:f.c.hr*Math.exp(1.96*se), w:1/(se*se) };
+  });
+  var pooled = null;
+  if(pts.length){
+    var sw = 0, swl = 0;
+    pts.forEach(function(p){ sw += p.w; swl += p.w*Math.log(p.hr); });
+    var lp = swl/sw, sep = Math.sqrt(1/sw);
+    var Q = 0;
+    pts.forEach(function(p){ Q += p.w*Math.pow(Math.log(p.hr)-lp, 2); });
+    var i2 = pts.length > 1 ? Math.max(0, (Q-(pts.length-1))/Q) : 0;
+    pooled = { name:"Pooled", hr:Math.exp(lp), lo:Math.exp(lp-1.96*sep), hi:Math.exp(lp+1.96*sep), i2:i2 };
+  }
+  function frRow(p, isPooled){
+    var r = el("div", "fr-row" + (isPooled ? " pooled" : ""));
+    r.appendChild(el("span", "fr-name", p.name));
+    var t = el("div", "fr-track");
+    var nul = el("i", "fr-null"); nul.style.left = frPos(1) + "%"; t.appendChild(nul);
+    var lo = Math.max(FR_LO, p.lo), hi = Math.min(FR_HI, p.hi);
+    var ci = el("i", "fr-ci");
+    ci.style.left = frPos(lo) + "%";
+    ci.style.width = Math.max(0, frPos(hi)-frPos(lo)) + "%";
+    t.appendChild(ci);
+    var pt = el("i", "fr-pt"); pt.style.left = frPos(p.hr) + "%"; t.appendChild(pt);
+    r.appendChild(t);
+    r.appendChild(el("span", "fr-val", p.hr.toFixed(2) + " (" + p.lo.toFixed(2) + "–" + p.hi.toFixed(2) + ")"));
+    return r;
+  }
+  pts.forEach(function(p){ host.appendChild(frRow(p, false)); });
+  if(pooled) host.appendChild(frRow(pooled, true));
+  var ax = el("div", "fr-axis");
+  ax.appendChild(el("span"));
+  var ticks = el("div", "fr-ticks");
+  [0.5,0.7,1.0,1.3].forEach(function(v){
+    var s = el("span", null, String(v)); s.style.left = frPos(v) + "%"; ticks.appendChild(s);
+  });
+  ax.appendChild(ticks);
+  ax.appendChild(el("span"));
+  host.appendChild(ax);
+
+  var fn = document.getElementById("forest-note");
+  fn.textContent = "";
+  if(pooled){
+    var widest = pts.slice().sort(function(a,b){ return (b.hi-b.lo)-(a.hi-a.lo); })[0];
+    fn.appendChild(document.createTextNode("Precision comes from events, not patients: "));
+    fn.appendChild(el("b", null, widest.name + " has the widest interval"));
+    fn.appendChild(document.createTextNode(" because it contributes fewest expected events. Pooled " +
+      pooled.hr.toFixed(2) + " (" + pooled.lo.toFixed(2) + "–" + pooled.hi.toFixed(2) + "), I² " +
+      Math.round(pooled.i2*100) + "%. Tighten a criterion above and every interval widens."));
+  }
+
+  /* --- module 7: covariate balance --- */
+  var bal = document.getElementById("bal");
+  bal.textContent = "";
+  var maxSmd = 0.6;
+  BALANCE.forEach(function(b){
+    var r = el("div", "bal-row");
+    r.appendChild(el("span", "bal-name", b.label));
+    var t = el("div", "bal-track");
+    var th = el("i", "bal-thresh"); th.style.left = (0.10/maxSmd*100) + "%"; t.appendChild(th);
+    var pre = el("i", "bal-pre"); pre.style.left = (b.pre/maxSmd*100) + "%";
+    pre.title = "unweighted SMD " + b.pre.toFixed(2); t.appendChild(pre);
+    var post = el("i", "bal-post"); post.style.left = (b.post/maxSmd*100) + "%";
+    post.title = "weighted SMD " + b.post.toFixed(2); t.appendChild(post);
+    r.appendChild(t);
+    r.appendChild(el("span", "bal-v", b.post.toFixed(2)));
+    bal.appendChild(r);
+  });
+  var worst = BALANCE.slice().sort(function(a,b){ return b.pre-a.pre; })[0];
+  var bn = document.getElementById("bal-note");
+  bn.textContent = "";
+  bn.appendChild(document.createTextNode("Weighting brings every covariate under the 0.10 threshold; "));
+  bn.appendChild(el("b", null, worst.label.toLowerCase() + " needs the most work"));
+  bn.appendChild(document.createTextNode(". The cost is precision, not bias: the effective sample size falls to " +
+    Math.round(ESS_FRAC*100) + "% of the eligible cohort" +
+    (net.n > 0 ? ", about " + fmt(net.n*ESS_FRAC) + " patients here" : "") + "."));
+
+  /* --- module 8: transportability --- */
+  var tp = document.getElementById("tp");
+  tp.textContent = "";
+  var maxD = 0.5;
+  var nearest = rows.slice().sort(function(a,b){ return a.c.dist-b.c.dist; })[0];
+  rows.forEach(function(f){
+    var r = el("div", "tp-row" + (nearest && f.c.id === nearest.c.id ? " near" : ""));
+    r.appendChild(el("span", "tp-name", f.c.name));
+    var t = el("div", "tp-track");
+    var i = el("i"); i.style.setProperty("--f", Math.min(1, f.c.dist/maxD)); t.appendChild(i);
+    r.appendChild(t);
+    r.appendChild(el("span", "tp-v", f.c.dist.toFixed(2)));
+    tp.appendChild(r);
+  });
+  var tn = document.getElementById("tp-note");
+  tn.textContent = "";
+  if(nearest && rows.length > 1){
+    var biggest = rows.slice().sort(function(a,b){ return b.n-a.n; })[0];
+    tn.appendChild(el("b", null, nearest.c.name + "'s cohort sits closest to the intended target population"));
+    if(biggest.c.id !== nearest.c.id){
+      tn.appendChild(document.createTextNode(", while " + biggest.c.name +
+        " offers the largest pool. Recruitment and transportability pull in different directions, and the country set has to answer both."));
+    } else {
+      tn.appendChild(document.createTextNode(", and it also offers the largest pool — an unusually easy country decision."));
+    }
+  }
 }
 
 function renderQA(net){
