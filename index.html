@@ -154,6 +154,31 @@ section{margin-bottom:38px}
 .substage .hint{font-size:12px;color:var(--muted);flex:none}
 .sub-intro{font-size:13px;color:var(--ink-2);line-height:1.6;max-width:80ch;margin-bottom:14px}
 
+/* ---- network map: proportional symbols on a true lat/lon graticule ---- */
+.mapbox{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:14px 16px 12px;margin-bottom:16px;
+}
+.netmap{display:block;width:100%;height:auto;max-height:320px}
+.grat line{stroke:var(--line);stroke-width:.7}
+.grat text{fill:var(--muted);font-size:8px;letter-spacing:.06em;font-family:var(--font-num)}
+.links line{stroke:var(--teal);stroke-width:.8;opacity:.16}
+.nd-halo{fill:var(--teal);opacity:.10}
+.nd-dot{fill:var(--teal);opacity:.85}
+.nd.lead .nd-dot{fill:var(--green)}
+.nd.lead .nd-halo{fill:var(--green)}
+.nd.out .nd-dot{fill:none;stroke:var(--line-strong);stroke-width:1.2;stroke-dasharray:3 2.5;opacity:.9}
+.nd.out .nd-halo{opacity:0}
+.nd-name{fill:var(--ink);font-size:11px;font-weight:700;letter-spacing:-.01em}
+.nd.out .nd-name{fill:var(--muted);font-weight:500}
+.nd-sub{fill:var(--muted);font-size:8.5px;font-family:var(--font-num);letter-spacing:.03em}
+.map-note{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:8px}
+.map-legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:7px}
+.map-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.map-legend .lg1 i{background:var(--green)}
+.map-legend .lg2 i{background:var(--teal);opacity:.85}
+.map-legend .lg3 i{background:none;border:1.2px dashed var(--line-strong)}
+
 /* ---- Stage 1: requirement chips + capability matrix ---- */
 .reqs{
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
@@ -172,33 +197,44 @@ section{margin-bottom:38px}
 .reqs label.on{border-color:var(--teal);background:var(--teal-soft);color:var(--ink);font-weight:600}
 .reqs input{width:14px;height:14px;margin:0}
 
-.cap-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);
-  background:var(--surface);box-shadow:var(--shadow)}
-.cap{border-collapse:separate;border-spacing:0;width:100%;min-width:660px;table-layout:fixed}
-.cap th,.cap td{border-bottom:1px solid var(--line);padding:9px 8px}
-.cap tr:last-child th,.cap tr:last-child td{border-bottom:0}
-.cap thead th{
-  font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);font-weight:700;
-  text-align:center;vertical-align:bottom;line-height:1.3;
-  border-bottom:1px solid var(--line-strong);
+.radars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.radars{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.radars{grid-template-columns:1fr}}
+.rad{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:12px 12px 10px;transition:border-color .15s;
 }
-.cap thead th.req{color:var(--teal)}
-.cap thead th.req::after{content:"required";display:block;font-size:9px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--teal);font-weight:800;margin-top:2px}
-.cap-db{width:23%;text-align:left;font-size:13.5px;font-weight:650;color:var(--ink)}
-.cap-db em{display:block;font-style:normal;font-family:var(--font-num);font-size:10px;
-  color:var(--muted);font-weight:600;letter-spacing:.04em}
-.cap td.dot{text-align:center;font-size:15px;line-height:1}
-.cap td.dot i{font-style:normal}
-.d2{color:var(--teal)}
-.d1{color:var(--amber)}
-.d0{color:var(--line-strong)}
-.cap td.miss{background:var(--amber-soft)}
-.cap td.miss i{color:var(--amber);font-weight:700}
-.cap-v{width:19%;text-align:right;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
-.cap tr.excluded .cap-db{color:var(--muted);font-weight:450}
-.cap-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:11.5px;color:var(--muted)}
-.cap-legend b{font-weight:400;font-size:14px;line-height:1;vertical-align:-1px}
+.rad.excluded{background:var(--surface-2)}
+.rad.pass{border-color:var(--green)}
+.rad-head{display:flex;align-items:baseline;gap:8px;margin-bottom:1px}
+.rad-name{font-size:13.5px;font-weight:700;letter-spacing:-.01em}
+.rad.excluded .rad-name{color:var(--muted);font-weight:500}
+.rad-ctry{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:800}
+.rad.excluded .rad-ctry{color:var(--slate)}
+.rad-meta{font-family:var(--font-num);font-size:10px;color:var(--muted);letter-spacing:.02em}
+.rad svg{display:block;width:100%;height:auto;margin-top:2px}
+.rg-ring{fill:none;stroke:var(--line);stroke-width:.6}
+.rg-ring.outer{stroke:var(--line-strong)}
+.rg-spoke{stroke:var(--line);stroke-width:.6}
+.rg-area{fill:var(--teal);fill-opacity:.17;stroke:var(--teal);stroke-width:1.6;stroke-linejoin:round}
+.rad.pass .rg-area{fill:var(--green);stroke:var(--green)}
+.rad.excluded .rg-area{fill:var(--slate);fill-opacity:.10;stroke:var(--line-strong);stroke-dasharray:3 2}
+.rg-dot{fill:var(--teal)}
+.rad.pass .rg-dot{fill:var(--green)}
+.rad.excluded .rg-dot{fill:var(--line-strong)}
+.rg-lab{fill:var(--muted);font-size:7.2px;letter-spacing:.04em;font-weight:700}
+.rg-lab.req{fill:var(--teal)}
+.rad.excluded .rg-lab.req{fill:var(--amber)}
+.rg-lab.miss{fill:var(--amber)}
+.rad-v{
+  margin-top:6px;padding-top:7px;border-top:1px solid var(--line);
+  display:flex;align-items:baseline;gap:7px;
+}
+.rad-v .vt{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:800}
+.rad-v .vw{font-size:10.5px;color:var(--muted);flex:1;text-align:right;font-family:var(--font-num)}
+.radar-caption{
+  font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:11px;max-width:88ch;
+}
 .gate{
   margin-top:16px;background:var(--surface);border:1px solid var(--line);
   border-left:3px solid var(--green);border-radius:var(--radius);
@@ -623,19 +659,28 @@ footer{
     </div>
     <p class="sub-intro">Before any analysis is commissioned, every candidate database is screened against what the protocol actually needs. Tick the data elements this protocol requires and the matrix decides which databases can answer it, and which are excluded with a documented reason.</p>
 
+    <div class="mapbox">
+      <svg class="netmap" viewBox="0 0 500 320" preserveAspectRatio="xMidYMid meet"
+           role="img" aria-label="Map of the AsPEN databases in this illustration, sized by recorded population">
+        <g class="grat" id="map-grat"></g>
+        <g class="links" id="map-links"></g>
+        <g class="nodes" id="map-nodes"></g>
+      </svg>
+      <div class="map-legend">
+        <span class="lg1"><i></i>proceeds</span>
+        <span class="lg2"><i></i>proceeds with a caveat</span>
+        <span class="lg3"><i></i>excluded by the screening</span>
+      </div>
+      <p class="map-note" id="map-note"></p>
+    </div>
+
     <div class="reqs no-print">
       <span class="rlab">This protocol requires</span>
       <div class="list" id="reqs"></div>
     </div>
 
-    <div class="cap-wrap">
-      <table class="cap" id="cap"></table>
-    </div>
-    <div class="cap-legend">
-      <span><b class="d2">●</b> captured routinely</span>
-      <span><b class="d1">◐</b> partial or subset only</span>
-      <span><b class="d0">○</b> not available</span>
-    </div>
+    <div class="radars" id="radars"></div>
+    <p class="radar-caption">Six dimensions scored 1 (very poor) to 5 (very good), following the AsPEN network's own framework for the data capacity of its member databases. A required dimension scoring 1 or 2 excludes the database; a 3 lets it through with a caveat.</p>
     <div class="gate" id="gate"></div>
 
     <div class="substage">
@@ -792,22 +837,22 @@ footer{
    Stage 2 retention fractions further down. */
 var COUNTRIES = [
   { id:"tw", name:"Taiwan",    db:"NHIRD",     disp:"Taiwan NHIRD", covered: 23.6e6, base:  99000,
-    cap:{scale:2, dx:2, rx:2, lab:1, stage:0, hosp:2, death:2, long:2},
+    ax:{cov:5, fup:5, clin:2, val:3, med:5, lat:1}, meta:"2000 · 23M · 24 mo",
     soc:[42,28,18,12], ttn:14, hr:0.78, dist:0.14 },
   { id:"cg", name:"Taiwan",    db:"CGRD",      disp:"Taiwan CGRD",  covered:  1.5e6, base:   6400,
-    cap:{scale:0, dx:2, rx:2, lab:2, stage:1, hosp:2, death:1, long:1},
+    ax:{cov:2, fup:3, clin:5, val:5, med:4, lat:5}, meta:"2011 · 1.5M · 1 mo",
     soc:[45,26,19,10], ttn:15, hr:0.76, dist:0.26 },
   { id:"kr", name:"Korea",     db:"NHIS-NHID", covered: 51.4e6, base: 162500,
-    cap:{scale:2, dx:2, rx:2, lab:2, stage:0, hosp:2, death:2, long:2},
+    ax:{cov:5, fup:5, clin:3, val:3, med:5, lat:3}, meta:"2002 · 50M · 7 mo",
     soc:[61,18,12, 9], ttn:11, hr:0.82, dist:0.31 },
   { id:"jp", name:"Japan",     db:"NDB",       covered:124.0e6, base: 422000,
-    cap:{scale:2, dx:2, rx:2, lab:1, stage:0, hosp:2, death:1, long:1},
+    ax:{cov:5, fup:2, clin:2, val:3, med:5, lat:1}, meta:"2008 · 120M · 24 mo",
     soc:[35,34,20,11], ttn:16, hr:0.75, dist:0.22 },
   { id:"hk", name:"Hong Kong", db:"CDARS",     covered:  7.4e6, base:  33000,
-    cap:{scale:1, dx:2, rx:2, lab:2, stage:1, hosp:2, death:2, long:1},
+    ax:{cov:3, fup:4, clin:5, val:5, med:4, lat:5}, meta:"1995 · 7M · <1 mo",
     soc:[48,25,17,10], ttn:13, hr:0.80, dist:0.19 },
-  { id:"th", name:"Thailand",  db:"HDC",       covered: 47.0e6, base: 127000,
-    cap:{scale:1, dx:2, rx:2, lab:2, stage:0, hosp:2, death:1, long:1},
+  { id:"th", name:"Thailand",  db:"HDC",       covered: 79.0e6, base: 127000,
+    ax:{cov:4, fup:3, clin:4, val:3, med:4, lat:4}, meta:"2016 · 79M · monthly",
     soc:[29,22,14,35], ttn:19, hr:0.85, dist:0.44 }
 ];
 
@@ -823,30 +868,25 @@ var BALANCE = [
 ];
 var ESS_FRAC = 0.62;   /* effective sample size retained after weighting */
 
-/* The Stage 1 screening dimensions. `on` is the default protocol requirement. */
-var CAPS = [
-  { id:"scale", label:"National-scale population", on:false,
-    note:"Hong Kong covers the public system and Thailand's HDC the MOPH facilities, so neither is national in the sense the other three are." },
-  { id:"dx",    label:"Diagnoses, ICD-coded", on:true,
-    note:"Universal across the network." },
-  { id:"rx",    label:"Drug exposure", on:true,
-    note:"Dispensing or prescribing captured in every source." },
-  { id:"lab",   label:"Laboratory values", on:true,
-    note:"Taiwan's claims spine carries them only for a linked subset; Japan's NDB holds specific health checkups, which run from age 40 to 74." },
-  { id:"stage", label:"Disease severity or staging", on:false,
-    note:"Claims data do not record stage. Only a source built on hospital records carries anything close, and then incompletely." },
-  { id:"hosp",  label:"Hospitalisation", on:true,
-    note:"Admissions captured everywhere." },
-  { id:"death", label:"Mortality linkage", on:false,
-    note:"Vital-status linkage is routine in Taiwan, Korea and Hong Kong; partial in Japan's NDB and Thailand's HDC." },
-  { id:"long",  label:"Continuous longitudinal follow-up", on:true,
-    note:"Single-payer lifetime enrolment in Taiwan and Korea. Japan's NDB identifier is derived from insurer details and breaks on a job change; Hong Kong loses private-sector care; Thailand loses patients moving between schemes." }
+/* Stage 1 screening axes, following the AsPEN network's own framework for
+   the data capacity of its member databases: six dimensions scored 1 (very
+   poor) to 5 (very good). `on` is the default protocol requirement. */
+var AX = [
+  { id:"cov",  label:"Population coverage",   short:"Coverage",   on:false,
+    note:"How much of the source population the database sees. A national single-payer claims spine scores highest; a multi-hospital EHR covering a tenth of the country does not." },
+  { id:"fup",  label:"Patients' follow-up",   short:"Follow-up",  on:false,
+    note:"Whether a patient can be tracked over time. Japan's NDB identifier is derived from insurer details and breaks on a job change; Thailand's HDC loses patients moving between schemes; a hospital EHR loses anyone who seeks care elsewhere." },
+  { id:"clin", label:"Clinical information",  short:"Clinical",   on:false,
+    note:"Laboratory values, vital signs, severity and staging. This is where claims data are weakest and hospital records strongest." },
+  { id:"val",  label:"Validity of diagnoses", short:"Validity",   on:true,
+    note:"Whether a recorded diagnosis can be trusted or verified. Chart-verifiable EHR sources score highest; reimbursement-driven claims coding needs validation studies." },
+  { id:"med",  label:"Medication use",        short:"Medication", on:true,
+    note:"Dispensing and prescribing capture. Strong across the network, which is why it is a reasonable default requirement for any drug study." },
+  { id:"lat",  label:"Data latency",          short:"Latency",    on:false,
+    note:"How current the data are. Hong Kong's CDARS is under a month behind; Taiwan's NHIRD and Japan's NDB run about two years behind, which decides whether a question about recent practice can be asked at all." }
 ];
+var AX_WORDS = ["", "very poor", "poor", "adequate", "good", "very good"];
 
-/* Order in this array IS the funnel order. Each criterion carries a
-   per-country retention AND a per-country, per-endpoint rate ratio.
-   The fractions are invented, but each one encodes a real property of
-   the database it belongs to. */
 var CRITERIA = [
   { id:"age", label:"Age ≥ 18 at index", kind:"Inclusion",
     keep:{tw:0.97, kr:0.97, jp:0.98, hk:0.98, th:0.96},
@@ -899,7 +939,7 @@ var PRESETS = [
 ];
 
 var MODULES = [
-  { n:1, stage:"Stage 1", demo:"#cap", title:"Multi-country feasibility assessment",
+  { n:1, stage:"Stage 1", demo:"#radars", title:"Multi-country feasibility assessment",
     want:"Which AsPEN databases can answer this at all?",
     does:"Assess each database for population coverage, drug and exposure capture, diagnosis coding, endpoint availability, laboratory values, mortality linkage and follow-up completeness.",
     gives:"Database feasibility matrix and a shortlist of databases that proceed." },
@@ -942,17 +982,17 @@ var ALPHA_Z = 1.959963985, POWER_Z = 0.841621234, RRR = 0.25;
 var S = { crit:{}, ctry:{}, req:{}, endpoint:"hosp", view:"patients", nudged:false };
 CRITERIA.forEach(function(k){ S.crit[k.id] = 1; });
 COUNTRIES.forEach(function(c){ S.ctry[c.id] = 1; });
-CAPS.forEach(function(p){ S.req[p.id] = p.on ? 1 : 0; });
+AX.forEach(function(p){ S.req[p.id] = p.on ? 1 : 0; });
 
 /* Stage 1 screening: a database is excluded when the protocol requires
    something it does not hold at all, and carries a caveat when it holds
    it only in part. */
 function screen(c){
   var missing = [], partial = [];
-  CAPS.forEach(function(p){
+  AX.forEach(function(p){
     if(!S.req[p.id]) return;
-    if(c.cap[p.id] === 0) missing.push(p);
-    else if(c.cap[p.id] === 1) partial.push(p);
+    if(c.ax[p.id] <= 2) missing.push(p);
+    else if(c.ax[p.id] === 3) partial.push(p);
   });
   return { c:c, missing:missing, partial:partial,
            pass: missing.length === 0,
@@ -1042,12 +1082,25 @@ var sumCell = {};   /* sumCell[rowId][countryId] = <td> */
 var colHead = {};
 function dname(c){ return c.disp || c.name; }
 
-var capCell = {};   /* capCell[capId][countryId] = <td> */
+var SVGNS = "http://www.w3.org/2000/svg";
+function svg(tag, attrs){
+  var e = document.createElementNS(SVGNS, tag);
+  if(attrs) Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); });
+  return e;
+}
+/* radar geometry: six axes from the top, clockwise */
+var R_CX = 72, R_CY = 68, R_MAX = 42;
+function axPt(i, v){
+  var a = (-90 + i*60) * Math.PI/180, r = v/5 * R_MAX;
+  return [R_CX + r*Math.cos(a), R_CY + r*Math.sin(a)];
+}
+var AX_ANCHOR = ["middle","start","start","middle","end","end"];
+var AX_DY     = [-4, 1, 5, 9, 5, 1];
 
 function buildReqs(){
   var host = document.getElementById("reqs");
   host.textContent = "";
-  CAPS.forEach(function(p){
+  AX.forEach(function(p){
     var lab = el("label");
     lab.dataset.id = p.id;
     lab.title = p.note;
@@ -1062,85 +1115,107 @@ function buildReqs(){
   });
 }
 
-function buildCapMatrix(){
-  var t = document.getElementById("cap");
-  t.textContent = "";
-  var thead = document.createElement("thead");
-  var hr = document.createElement("tr");
-  hr.appendChild(el("th", "cap-db", "Database"));
-  CAPS.forEach(function(p){
-    var th = el("th", null, p.label);
-    th.dataset.id = p.id;
-    th.title = p.note;
-    hr.appendChild(th);
-  });
-  hr.appendChild(el("th", "cap-v", "Screening"));
-  thead.appendChild(hr);
-  t.appendChild(thead);
-
-  var tb = document.createElement("tbody");
+var radEls = {};
+function buildRadars(){
+  var host = document.getElementById("radars");
+  host.textContent = "";
   COUNTRIES.forEach(function(c){
-    var tr = document.createElement("tr");
-    tr.dataset.id = c.id;
-    var th = el("th", "cap-db", c.name);
-    th.appendChild(el("em", null, c.db));
-    tr.appendChild(th);
-    CAPS.forEach(function(p){
-      var td = el("td", "dot");
-      var v = c.cap[p.id];
-      var i = el("i", "d" + v, v === 2 ? "●" : (v === 1 ? "◐" : "○"));
-      i.title = p.label + ": " + (v === 2 ? "captured routinely" : v === 1 ? "partial or subset only" : "not available");
-      td.appendChild(i);
-      if(!capCell[p.id]) capCell[p.id] = {};
-      capCell[p.id][c.id] = td;
-      tr.appendChild(td);
+    var box = el("div", "rad"); box.dataset.id = c.id;
+
+    var head = el("div", "rad-head");
+    head.appendChild(el("span", "rad-ctry", c.name));
+    head.appendChild(el("span", "rad-name", c.db));
+    box.appendChild(head);
+    box.appendChild(el("div", "rad-meta", c.meta));
+
+    var g = svg("svg", { viewBox:"0 0 144 140", role:"img",
+                         "aria-label":c.name + " " + c.db + " data capacity" });
+    /* rings */
+    [1,2,3,4,5].forEach(function(v){
+      var pts = [];
+      for(var i=0;i<6;i++){ var q = axPt(i, v); pts.push(q[0].toFixed(1)+","+q[1].toFixed(1)); }
+      g.appendChild(svg("polygon", { points:pts.join(" "),
+        "class":"rg-ring" + (v===5 ? " outer" : "") }));
     });
-    tr.appendChild(el("td", "cap-v"));
-    tb.appendChild(tr);
+    /* spokes */
+    for(var i=0;i<6;i++){
+      var q = axPt(i,5);
+      g.appendChild(svg("line", { x1:R_CX, y1:R_CY, x2:q[0].toFixed(1), y2:q[1].toFixed(1), "class":"rg-spoke" }));
+    }
+    /* data */
+    var area = svg("polygon", { "class":"rg-area" });
+    g.appendChild(area);
+    var dots = [], labs = [];
+    AX.forEach(function(p, i){
+      var d = svg("circle", { r:2.1, "class":"rg-dot" });
+      g.appendChild(d); dots.push(d);
+      var q = axPt(i, 5.9);
+      var t = svg("text", { x:q[0].toFixed(1), y:(q[1]+AX_DY[i]).toFixed(1),
+                            "text-anchor":AX_ANCHOR[i], "class":"rg-lab" });
+      t.textContent = p.short;
+      g.appendChild(t); labs.push(t);
+    });
+    box.appendChild(g);
+
+    var v = el("div", "rad-v");
+    v.appendChild(el("span", "vt"));
+    v.appendChild(el("span", "vw"));
+    box.appendChild(v);
+
+    radEls[c.id] = { box:box, area:area, dots:dots, labs:labs,
+                     vt:v.querySelector(".vt"), vw:v.querySelector(".vw") };
+    host.appendChild(box);
   });
-  t.appendChild(tb);
 }
 
 function renderCap(){
-  var t = document.getElementById("cap");
-  /* mark the required columns */
-  t.querySelectorAll("thead th[data-id]").forEach(function(th){
-    th.classList.toggle("req", !!S.req[th.dataset.id]);
-  });
   var passed = [], excluded = [];
   COUNTRIES.forEach(function(c){
-    var s = screen(c);
-    (s.pass ? passed : excluded).push(s);
-    var tr = t.querySelector('tbody tr[data-id="' + c.id + '"]');
-    tr.classList.toggle("excluded", !s.pass);
-    CAPS.forEach(function(p){
-      var td = capCell[p.id][c.id];
-      td.classList.toggle("miss", !!S.req[p.id] && c.cap[p.id] === 0);
+    var sc = screen(c);
+    (sc.pass ? passed : excluded).push(sc);
+    var r = radEls[c.id];
+    var pts = [];
+    AX.forEach(function(p, i){
+      var q = axPt(i, c.ax[p.id]);
+      pts.push(q[0].toFixed(1)+","+q[1].toFixed(1));
+      r.dots[i].setAttribute("cx", q[0].toFixed(1));
+      r.dots[i].setAttribute("cy", q[1].toFixed(1));
+      var req = !!S.req[p.id];
+      r.labs[i].setAttribute("class",
+        "rg-lab" + (req ? (c.ax[p.id] <= 2 ? " miss" : " req") : ""));
     });
-    var v = tr.querySelector(".cap-v");
-    v.textContent = s.verdict;
-    v.className = "cap-v " + (s.verdict === "Proceeds" ? "v-comf" : s.verdict === "Caveat" ? "v-tight" : "v-no");
+    r.area.setAttribute("points", pts.join(" "));
+    r.box.className = "rad" + (sc.verdict === "Excluded" ? " excluded"
+                             : sc.verdict === "Proceeds" ? " pass" : "");
+    r.vt.textContent = sc.verdict;
+    r.vt.className = "vt " + (sc.verdict === "Proceeds" ? "v-comf"
+                            : sc.verdict === "Caveat" ? "v-tight" : "v-no");
+    r.vw.textContent = sc.missing.length
+      ? sc.missing.map(function(m){ return m.short.toLowerCase(); }).join(", ")
+      : (sc.partial.length ? sc.partial.map(function(m){ return m.short.toLowerCase(); }).join(", ") : "all requirements met");
   });
 
-  /* the gate: what Stage 1 concluded, and the button that acts on it */
   var gate = document.getElementById("gate");
   gate.textContent = "";
   gate.className = "gate" + (excluded.length ? " hard" : "");
   var p = el("p");
-  if(excluded.length === 0){
+  if(!Object.keys(S.req).some(function(k){ return S.req[k]; })){
+    p.appendChild(el("b", null, "No requirements set."));
+    p.appendChild(document.createTextNode(" Tick what the protocol needs above and the screening decides which databases can answer it."));
+  } else if(excluded.length === 0){
     p.appendChild(el("b", null, "All " + COUNTRIES.length + " databases proceed to Stage 2."));
     p.appendChild(document.createTextNode(
-      " " + passed.filter(function(s){ return s.partial.length; }).length +
-      " of them carry a caveat, which is what the retention fractions in Stage 2 encode: a partial capture removes patients rather than blocking the study."));
+      " " + passed.filter(function(x){ return x.partial.length; }).length +
+      " carry a caveat, which is what the retention fractions in Stage 2 encode: a weak dimension removes patients rather than blocking the study."));
   } else {
-    var names = excluded.map(function(s){ return s.c.name; });
+    var names = excluded.map(function(x){ return dname(x.c); });
     p.appendChild(el("b", null,
       excluded.length + " of " + COUNTRIES.length + " databases are excluded before any analysis is run: " + names.join(", ") + "."));
     var reasons = {};
-    excluded.forEach(function(s){ s.missing.forEach(function(m){ reasons[m.label] = 1; }); });
+    excluded.forEach(function(x){ x.missing.forEach(function(m){ reasons[m.label.toLowerCase()] = 1; }); });
     p.appendChild(document.createTextNode(
-      " The blocking requirement is " + Object.keys(reasons).map(function(r){ return r.toLowerCase(); }).join(" and ") +
-      ". This is the finding Stage 1 exists to produce — one line in the protocol, and the network shrinks to " +
+      " The blocking dimension is " + Object.keys(reasons).join(" and ") +
+      ". This is the finding Stage 1 exists to produce: one line in the protocol, and the network shrinks to " +
       passed.length + " database" + (passed.length === 1 ? "" : "s") + ", before a single query is written."));
   }
   gate.appendChild(p);
@@ -1156,6 +1231,74 @@ function renderCap(){
     });
     gate.appendChild(btn);
   }
+  renderMap();
+}
+
+/* ---- network map: true lat/lon, symbol area proportional to population ---- */
+var MAPNODES = [
+  { name:"Thailand",  ids:["th"],      x: 50, y:270, anchor:"start", dx: 17, dy: 4 },
+  { name:"Hong Kong", ids:["hk"],      x:182, y:197, anchor:"end",   dx:-17, dy:14 },
+  { name:"Taiwan",    ids:["tw","cg"], x:250, y:182, anchor:"start", dx: 17, dy: 4 },
+  { name:"Korea",     ids:["kr"],      x:318, y: 55, anchor:"end",   dx:-16, dy: 4 },
+  { name:"Japan",     ids:["jp"],      x:423, y: 58, anchor:"start", dx: 17, dy: 4 }
+];
+function buildMap(){
+  var grat = document.getElementById("map-grat");
+  grat.textContent = "";
+  /* lon 96-146 across 0-500, lat 42-10 down 0-320 */
+  for(var lon=100; lon<=140; lon+=10){
+    var x = (lon-96)*10;
+    grat.appendChild(svg("line", { x1:x, y1:0, x2:x, y2:320 }));
+    var t = svg("text", { x:x+3, y:314 }); t.textContent = lon + "°E";
+    grat.appendChild(t);
+  }
+  for(var lat=40; lat>=10; lat-=10){
+    var y = (42-lat)*10;
+    grat.appendChild(svg("line", { x1:0, y1:y, x2:500, y2:y }));
+    var t2 = svg("text", { x:3, y:y-3 }); t2.textContent = lat + "°N";
+    grat.appendChild(t2);
+  }
+}
+function renderMap(){
+  var linkHost = document.getElementById("map-links");
+  var nodeHost = document.getElementById("map-nodes");
+  linkHost.textContent = ""; nodeHost.textContent = "";
+
+  var byCountry = {};
+  COUNTRIES.forEach(function(c){ byCountry[c.id] = c; });
+  var maxPop = 0;
+  MAPNODES.forEach(function(n){
+    n._pop = n.ids.reduce(function(a,id){ return a + byCountry[id].base; }, 0);
+    if(n._pop > maxPop) maxPop = n._pop;
+    var vs = n.ids.map(function(id){ return screen(byCountry[id]); });
+    n._pass = vs.some(function(v){ return v.pass; });
+    n._clean = vs.every(function(v){ return v.verdict === "Proceeds"; });
+  });
+
+  var live = MAPNODES.filter(function(n){ return n._pass; });
+  for(var i=0;i<live.length;i++)
+    for(var j=i+1;j<live.length;j++)
+      linkHost.appendChild(svg("line", { x1:live[i].x, y1:live[i].y, x2:live[j].x, y2:live[j].y }));
+
+  MAPNODES.forEach(function(n){
+    var g = svg("g", { "class":"nd" + (n._pass ? (n._clean ? " lead" : "") : " out") });
+    var r = 8 + Math.sqrt(n._pop/maxPop) * 26;
+    g.appendChild(svg("circle", { cx:n.x, cy:n.y, r:(r+7).toFixed(1), "class":"nd-halo" }));
+    g.appendChild(svg("circle", { cx:n.x, cy:n.y, r:r.toFixed(1), "class":"nd-dot" }));
+    var t = svg("text", { x:n.x + n.dx, y:n.y + n.dy, "text-anchor":n.anchor, "class":"nd-name" });
+    t.textContent = n.name;
+    g.appendChild(t);
+    var sub = svg("text", { x:n.x + n.dx, y:n.y + n.dy + 11, "text-anchor":n.anchor, "class":"nd-sub" });
+    sub.textContent = n.ids.map(function(id){ return byCountry[id].db; }).join(" · ");
+    g.appendChild(sub);
+    nodeHost.appendChild(g);
+  });
+
+  var kept = MAPNODES.filter(function(n){ return n._pass; }).length;
+  document.getElementById("map-note").textContent =
+    "Symbol area is proportional to the recorded Disease X population in each country's databases. " +
+    kept + " of " + MAPNODES.length + " countries carry at least one database through the screening; " +
+    "lines mark the pairs that would run the common protocol together.";
 }
 
 function buildCriteria(){
@@ -1275,7 +1418,7 @@ function buildModules(){
       chip.addEventListener("click", function(ev){
         ev.preventDefault();
         var t = document.querySelector(m.demo);
-        if(t) (t.closest(".pbox") || t.closest(".fx-wrap") || t.closest(".cap-wrap") || t)
+        if(t) (t.closest(".pbox") || t.closest(".fx-wrap") || t.closest(".rad") || t)
                 .scrollIntoView({ behavior:"smooth", block:"center" });
       });
       strong.appendChild(chip);
@@ -1781,7 +1924,7 @@ function renderQA(net){
 function writeHash(){
   var c = CRITERIA.map(function(k){ return S.crit[k.id] ? "1" : "0"; }).join("");
   var t = COUNTRIES.map(function(x){ return S.ctry[x.id] ? "1" : "0"; }).join("");
-  var r = CAPS.map(function(p){ return S.req[p.id] ? "1" : "0"; }).join("");
+  var r = AX.map(function(p){ return S.req[p.id] ? "1" : "0"; }).join("");
   var h = "#c=" + c + "&t=" + t + "&r=" + r + "&e=" + S.endpoint + "&v=" + S.view;
   try{ history.replaceState(null, "", h); }catch(e){}
 }
@@ -1800,8 +1943,8 @@ function readHash(){
   if(q.t && q.t.length === COUNTRIES.length){
     COUNTRIES.forEach(function(x, i){ S.ctry[x.id] = q.t.charAt(i) === "1" ? 1 : 0; });
   }
-  if(q.r && q.r.length === CAPS.length){
-    CAPS.forEach(function(p, i){ S.req[p.id] = q.r.charAt(i) === "1" ? 1 : 0; });
+  if(q.r && q.r.length === AX.length){
+    AX.forEach(function(p, i){ S.req[p.id] = q.r.charAt(i) === "1" ? 1 : 0; });
   }
   if(q.e === "hosp" || q.e === "death") S.endpoint = q.e;
   if(q.v === "patients" || q.v === "events") S.view = q.v;
@@ -1841,7 +1984,8 @@ function renderAll(){ render(); renderControls(); writeHash(); }
 
 readHash();
 buildReqs();
-buildCapMatrix();
+buildRadars();
+buildMap();
 buildCriteria();
 buildMatrix();
 buildModules();
