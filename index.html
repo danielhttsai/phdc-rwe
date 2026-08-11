@@ -842,16 +842,16 @@ var COUNTRIES = [
   { id:"cg", name:"Taiwan",    db:"CGRD",      disp:"Taiwan CGRD",  covered:  1.5e6, base:   6400,
     ax:{cov:2, fup:3, clin:5, val:5, med:4, lat:5}, meta:"2011 · 1.5M · 1 mo",
     soc:[45,26,19,10], ttn:15, hr:0.76, dist:0.26 },
-  { id:"kr", name:"Korea",     db:"NHIS-NHID", covered: 51.4e6, base: 162500,
+  { id:"kr", name:"Korea",     db:"NHIS-NHID", disp:"Korea NHIS-NHID", covered: 51.4e6, base: 162500,
     ax:{cov:5, fup:5, clin:3, val:3, med:5, lat:3}, meta:"2002 · 50M · 7 mo",
     soc:[61,18,12, 9], ttn:11, hr:0.82, dist:0.31 },
-  { id:"jp", name:"Japan",     db:"NDB",       covered:124.0e6, base: 422000,
+  { id:"jp", name:"Japan",     db:"NDB",       disp:"Japan NDB", covered:124.0e6, base: 422000,
     ax:{cov:5, fup:2, clin:2, val:3, med:5, lat:1}, meta:"2008 · 120M · 24 mo",
     soc:[35,34,20,11], ttn:16, hr:0.75, dist:0.22 },
-  { id:"hk", name:"Hong Kong", db:"CDARS",     covered:  7.4e6, base:  33000,
+  { id:"hk", name:"Hong Kong", db:"CDARS",     disp:"Hong Kong CDARS", covered:  7.4e6, base:  33000,
     ax:{cov:3, fup:4, clin:5, val:5, med:4, lat:5}, meta:"1995 · 7M · <1 mo",
     soc:[48,25,17,10], ttn:13, hr:0.80, dist:0.19 },
-  { id:"th", name:"Thailand",  db:"HDC",       covered: 79.0e6, base: 127000,
+  { id:"th", name:"Thailand",  db:"HDC",       disp:"Thailand HDC", covered: 79.0e6, base: 127000,
     ax:{cov:4, fup:3, clin:4, val:3, med:4, lat:4}, meta:"2016 · 79M · monthly",
     soc:[29,22,14,35], ttn:19, hr:0.85, dist:0.44 }
 ];
@@ -889,47 +889,47 @@ var AX_WORDS = ["", "very poor", "poor", "adequate", "good", "very good"];
 
 var CRITERIA = [
   { id:"age", label:"Age ≥ 18 at index", kind:"Inclusion",
-    keep:{tw:0.97, kr:0.97, jp:0.98, hk:0.98, th:0.96},
-    rr:{ hosp:{tw:1.02,kr:1.02,jp:1.02,hk:1.02,th:1.01},
-         death:{tw:1.05,kr:1.05,jp:1.04,hk:1.04,th:1.03} },
+    keep:{tw:0.97, cg:0.97, kr:0.97, jp:0.98, hk:0.98, th:0.96},
+    rr:{ hosp:{tw:1.02,cg:1.02,kr:1.02,jp:1.02,hk:1.02,th:1.01},
+         death:{tw:1.05,cg:1.05,kr:1.05,jp:1.04,hk:1.04,th:1.03} },
     why:"Almost no attrition anywhere. Thailand loses most, because the HDC files carry a younger population than the East Asian sources." },
 
   { id:"prior", label:"≥ 1 prior line of therapy", kind:"Inclusion",
-    keep:{tw:0.55, kr:0.30, jp:0.42, hk:0.28, th:0.35},
-    rr:{ hosp:{tw:1.55,kr:1.70,jp:1.58,hk:1.65,th:1.62},
-         death:{tw:1.70,kr:1.85,jp:1.72,hk:1.80,th:1.78} },
+    keep:{tw:0.55, cg:0.55, kr:0.30, jp:0.42, hk:0.28, th:0.35},
+    rr:{ hosp:{tw:1.55,cg:1.55,kr:1.70,jp:1.58,hk:1.65,th:1.62},
+         death:{tw:1.70,cg:1.70,kr:1.85,jp:1.72,hk:1.80,th:1.78} },
     why:"Bites hardest where escalation to a second line is slowest. Where the criterion is more selective it also enriches more, which is exactly why it never pays for itself." },
 
   { id:"washout", label:"12-month washout and continuous observation", kind:"Design",
-    keep:{tw:0.93, kr:0.90, jp:0.70, hk:0.73, th:0.62},
-    rr:{ hosp:{tw:0.94,kr:0.94,jp:0.92,hk:0.93,th:0.91},
-         death:{tw:0.92,kr:0.92,jp:0.90,hk:0.91,th:0.89} },
+    keep:{tw:0.93, cg:0.66, kr:0.90, jp:0.70, hk:0.73, th:0.62},
+    rr:{ hosp:{tw:0.94,cg:0.95,kr:0.94,jp:0.92,hk:0.93,th:0.91},
+         death:{tw:0.92,cg:0.93,kr:0.92,jp:0.90,hk:0.91,th:0.89} },
     why:"A database question, not a clinical one. Lifetime single-payer enrolment in Taiwan and Korea keeps nearly everyone. Japan's NDB identifier is derived from insurer details, so a job change or a move onto national insurance breaks the longitudinal link. Thailand's HDC sees MOPH facilities, so care taken elsewhere or under another scheme is invisible." },
 
   { id:"renal", label:"Exclude CKD stage 4–5", kind:"Exclusion",
-    keep:{tw:0.90, kr:0.92, jp:0.86, hk:0.86, th:0.89},
-    rr:{ hosp:{tw:0.80,kr:0.82,jp:0.78,hk:0.79,th:0.81},
-         death:{tw:0.72,kr:0.74,jp:0.70,hk:0.71,th:0.73} },
+    keep:{tw:0.90, cg:0.90, kr:0.92, jp:0.86, hk:0.86, th:0.89},
+    rr:{ hosp:{tw:0.80,cg:0.80,kr:0.82,jp:0.78,hk:0.79,th:0.81},
+         death:{tw:0.72,cg:0.72,kr:0.74,jp:0.70,hk:0.71,th:0.73} },
     why:"Removes the highest-risk patients, so it lowers the event rate as well as the count. Costs most in the oldest populations." },
 
   { id:"comorb", label:"Exclude severe hepatic impairment, NYHA III–IV, active malignancy", kind:"Exclusion",
-    keep:{tw:0.88, kr:0.90, jp:0.87, hk:0.88, th:0.89},
-    rr:{ hosp:{tw:0.86,kr:0.87,jp:0.85,hk:0.86,th:0.87},
-         death:{tw:0.78,kr:0.80,jp:0.77,hk:0.78,th:0.79} },
+    keep:{tw:0.88, cg:0.88, kr:0.90, jp:0.87, hk:0.88, th:0.89},
+    rr:{ hosp:{tw:0.86,cg:0.86,kr:0.87,jp:0.85,hk:0.86,th:0.87},
+         death:{tw:0.78,cg:0.78,kr:0.80,jp:0.77,hk:0.78,th:0.79} },
     why:"Standard protective exclusions. Modest in count, larger in events, because the patients removed are the ones who would have had them." },
 
   { id:"baseline", label:"Complete baseline information recorded", kind:"Data",
-    keep:{tw:0.32, kr:0.88, jp:0.48, hk:0.90, th:0.74},
-    rr:{ hosp:{tw:1.03,kr:1.01,jp:1.04,hk:1.01,th:1.02},
-         death:{tw:1.03,kr:1.01,jp:1.04,hk:1.01,th:1.02} },
+    keep:{tw:0.32, cg:0.92, kr:0.88, jp:0.48, hk:0.90, th:0.74},
+    rr:{ hosp:{tw:1.03,cg:1.01,kr:1.01,jp:1.04,hk:1.01,th:1.02},
+         death:{tw:1.03,cg:1.01,kr:1.01,jp:1.04,hk:1.01,th:1.02} },
     why:"Not a clinical criterion at all. It asks whether the database records the covariates the statistical analysis plan wants, such as eGFR, BMI and smoking status. Taiwan's claims spine does not routinely carry laboratory values. Japan's NDB holds specific health checkup data, but those checkups run from age 40 to 74 and roughly half the eligible population attends. Korea's national health-screening file and Hong Kong's hospital records carry them as a matter of course, and Thailand's 43 files include laboratory results." }
 ];
 
 var ENDPOINTS = [
   { id:"hosp",  label:"Hospitalisation within 1 year", short:"Hospitalisation",
-    base:{tw:0.075, kr:0.068, jp:0.082, hk:0.085, th:0.095} },
+    base:{tw:0.075, cg:0.098, kr:0.068, jp:0.082, hk:0.085, th:0.095} },
   { id:"death", label:"All-cause death within 1 year", short:"Death",
-    base:{tw:0.022, kr:0.019, jp:0.028, hk:0.027, th:0.034} }
+    base:{tw:0.022, cg:0.032, kr:0.019, jp:0.028, hk:0.027, th:0.034} }
 ];
 
 var PRESETS = [
@@ -983,6 +983,26 @@ var S = { crit:{}, ctry:{}, req:{}, endpoint:"hosp", view:"patients", nudged:fal
 CRITERIA.forEach(function(k){ S.crit[k.id] = 1; });
 COUNTRIES.forEach(function(c){ S.ctry[c.id] = 1; });
 AX.forEach(function(p){ S.req[p.id] = p.on ? 1 : 0; });
+
+/* Every database must carry a value on every axis, every criterion and every
+   endpoint. A missing key would multiply into NaN, and NaN formats as 0, so a
+   silent hole would read as a real answer. Fail loudly instead. */
+(function checkData(){
+  var bad = [];
+  COUNTRIES.forEach(function(c){
+    AX.forEach(function(p){ if(typeof c.ax[p.id] !== "number") bad.push(c.id + ".ax." + p.id); });
+    CRITERIA.forEach(function(k){
+      if(typeof k.keep[c.id] !== "number") bad.push(k.id + ".keep." + c.id);
+      ENDPOINTS.forEach(function(e){
+        if(typeof k.rr[e.id][c.id] !== "number") bad.push(k.id + ".rr." + e.id + "." + c.id);
+      });
+    });
+    ENDPOINTS.forEach(function(e){
+      if(typeof e.base[c.id] !== "number") bad.push(e.id + ".base." + c.id);
+    });
+  });
+  if(bad.length) throw new Error("incomplete illustration parameters: " + bad.join(", "));
+})();
 
 /* Stage 1 screening: a database is excluded when the protocol requires
    something it does not hold at all, and carries a caveat when it holds
