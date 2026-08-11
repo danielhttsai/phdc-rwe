@@ -1276,6 +1276,14 @@ function buildRadars(){
 }
 
 function renderCap(){
+  /* the requirement chips are one of three ways to change S.req, so they are
+     re-synced here rather than owned by their own click handler */
+  document.querySelectorAll("#reqs label").forEach(function(lab){
+    var on = !!S.req[lab.dataset.id];
+    lab.classList.toggle("on", on);
+    lab.querySelector("input").checked = on;
+  });
+
   var passed = [], excluded = [];
   COUNTRIES.forEach(function(c){
     var sc = screen(c);
