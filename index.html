@@ -222,7 +222,8 @@ section{margin-bottom:38px}
 .rg-dot{fill:var(--teal)}
 .rad.pass .rg-dot{fill:var(--green)}
 .rad.excluded .rg-dot{fill:var(--line-strong)}
-.rg-lab{fill:var(--muted);font-size:7.2px;letter-spacing:.04em;font-weight:700}
+.rg-lab{fill:var(--muted);font-size:7.6px;letter-spacing:.03em;font-weight:700;cursor:pointer}
+.rg-lab:hover{fill:var(--ink)}
 .rg-lab.req{fill:var(--teal)}
 .rad.excluded .rg-lab.req{fill:var(--amber)}
 .rg-lab.miss{fill:var(--amber)}
@@ -232,6 +233,27 @@ section{margin-bottom:38px}
 }
 .rad-v .vt{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:800}
 .rad-v .vw{font-size:10.5px;color:var(--muted);flex:1;text-align:right;font-family:var(--font-num)}
+.rad{cursor:pointer}
+.rad:hover{border-color:var(--line-strong)}
+.rad.open{border-color:var(--teal)}
+.rad-more{
+  margin-top:9px;padding-top:9px;border-top:1px solid var(--line);display:none;
+}
+.rad.open .rad-more{display:block}
+.rm-row{display:grid;grid-template-columns:66px 44px minmax(0,1fr);gap:9px;align-items:baseline;margin-bottom:6px}
+.rm-ax{font-size:11px;font-weight:700;color:var(--ink-2)}
+.rm-ax.req{color:var(--teal)}
+.rm-ax.miss{color:var(--amber)}
+.rm-pips{display:flex;gap:2px}
+.rm-pips i{display:block;width:6px;height:6px;border-radius:1px;background:var(--line-strong)}
+.rm-pips i.on{background:var(--teal)}
+.rm-row.weak .rm-pips i.on{background:var(--amber)}
+.rm-why{font-size:11px;color:var(--muted);line-height:1.45}
+.rad-hint{
+  margin-top:7px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;
+}
+.rad.open .rad-hint{color:var(--teal)}
 .radar-caption{
   font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:11px;max-width:88ch;
 }
@@ -838,21 +860,57 @@ footer{
 var COUNTRIES = [
   { id:"tw", name:"Taiwan",    db:"NHIRD",     disp:"Taiwan NHIRD", covered: 23.6e6, base:  99000,
     ax:{cov:5, fup:5, clin:2, val:3, med:5, lat:1}, meta:"2000 · 23M · 24 mo",
+    why:{cov:"single payer, more than 99% of the population",
+         fup:"lifetime enrolment, effectively no loss to follow-up",
+         clin:"claims spine; laboratory values only for a linked subset",
+         val:"reimbursement-driven coding, validated for major conditions",
+         med:"every dispensing under the single payer",
+         lat:"about two years behind"},
     soc:[42,28,18,12], ttn:14, hr:0.78, dist:0.14 },
   { id:"cg", name:"Taiwan",    db:"CGRD",      disp:"Taiwan CGRD",  covered:  1.5e6, base:   6400,
     ax:{cov:2, fup:3, clin:5, val:5, med:4, lat:5}, meta:"2011 · 1.5M · 1 mo",
+    why:{cov:"seven hospitals, six to ten per cent of the country",
+         fup:"patients treated elsewhere leave the record",
+         clin:"full electronic records: laboratory, vital signs, free text",
+         val:"diagnoses verifiable against the chart",
+         med:"in-system prescribing only",
+         lat:"refreshed with about one month's delay"},
     soc:[45,26,19,10], ttn:15, hr:0.76, dist:0.26 },
   { id:"kr", name:"Korea",     db:"NHIS-NHID", disp:"Korea NHIS-NHID", covered: 51.4e6, base: 162500,
     ax:{cov:5, fup:5, clin:3, val:3, med:5, lat:3}, meta:"2002 · 50M · 7 mo",
+    why:{cov:"compulsory national insurance, whole population",
+         fup:"continuous enrolment since 2002",
+         clin:"national health screening adds biometrics and basic laboratory",
+         val:"claims coding, with screening data to corroborate",
+         med:"complete national dispensing",
+         lat:"about seven months behind"},
     soc:[61,18,12, 9], ttn:11, hr:0.82, dist:0.31 },
   { id:"jp", name:"Japan",     db:"NDB",       disp:"Japan NDB", covered:124.0e6, base: 422000,
     ax:{cov:5, fup:2, clin:2, val:3, med:5, lat:1}, meta:"2008 · 120M · 24 mo",
+    why:{cov:"effectively the entire population",
+         fup:"identifier derived from insurer details, breaks on a job change",
+         clin:"specific health checkups only, ages 40 to 74",
+         val:"claims coding across all payers",
+         med:"all reimbursed prescribing",
+         lat:"about two years behind"},
     soc:[35,34,20,11], ttn:16, hr:0.75, dist:0.22 },
   { id:"hk", name:"Hong Kong", db:"CDARS",     disp:"Hong Kong CDARS", covered:  7.4e6, base:  33000,
     ax:{cov:3, fup:4, clin:5, val:5, med:4, lat:5}, meta:"1995 · 7M · <1 mo",
+    why:{cov:"public system, the large majority of residents",
+         fup:"continuous within the public system since 1995",
+         clin:"full hospital records with laboratory results",
+         val:"clinician-entered and verifiable against the chart",
+         med:"public-sector dispensing",
+         lat:"under a month behind"},
     soc:[48,25,17,10], ttn:13, hr:0.80, dist:0.19 },
   { id:"th", name:"Thailand",  db:"HDC",       disp:"Thailand HDC", covered: 79.0e6, base: 127000,
     ax:{cov:4, fup:3, clin:4, val:3, med:4, lat:4}, meta:"2016 · 79M · monthly",
+    why:{cov:"MOPH facilities, about 79 million people",
+         fup:"patients moving between schemes drop out of view",
+         clin:"the 43 files carry laboratory results and screening",
+         val:"standardised reporting, limited external validation",
+         med:"dispensing recorded at MOPH facilities",
+         lat:"uploaded at least monthly"},
     soc:[29,22,14,35], ttn:19, hr:0.85, dist:0.44 }
 ];
 
@@ -1148,7 +1206,7 @@ function buildRadars(){
     box.appendChild(head);
     box.appendChild(el("div", "rad-meta", c.meta));
 
-    var g = svg("svg", { viewBox:"0 0 144 140", role:"img",
+    var g = svg("svg", { viewBox:"-34 -2 212 148", role:"img",
                          "aria-label":c.name + " " + c.db + " data capacity" });
     /* rings */
     [1,2,3,4,5].forEach(function(v){
@@ -1173,6 +1231,13 @@ function buildRadars(){
       var t = svg("text", { x:q[0].toFixed(1), y:(q[1]+AX_DY[i]).toFixed(1),
                             "text-anchor":AX_ANCHOR[i], "class":"rg-lab" });
       t.textContent = p.short;
+      t.addEventListener("click", function(ev){
+        ev.stopPropagation();
+        S.req[p.id] = S.req[p.id] ? 0 : 1;
+        renderAll();
+      });
+      var tt = svg("title"); tt.textContent = p.label + " — click to require it";
+      t.appendChild(tt);
       g.appendChild(t); labs.push(t);
     });
     box.appendChild(g);
@@ -1182,7 +1247,29 @@ function buildRadars(){
     v.appendChild(el("span", "vw"));
     box.appendChild(v);
 
-    radEls[c.id] = { box:box, area:area, dots:dots, labs:labs,
+    var more = el("div", "rad-more");
+    var rows = [];
+    AX.forEach(function(p){
+      var rw = el("div", "rm-row");
+      var ax = el("div", "rm-ax", p.short);
+      var pips = el("div", "rm-pips");
+      var pipEls = [];
+      for(var q=0;q<5;q++){ var pip = el("i"); pips.appendChild(pip); pipEls.push(pip); }
+      rw.appendChild(ax); rw.appendChild(pips);
+      rw.appendChild(el("div", "rm-why", (c.why && c.why[p.id]) || ""));
+      more.appendChild(rw);
+      rows.push({ row:rw, ax:ax, pips:pipEls });
+    });
+    box.appendChild(more);
+    box.appendChild(el("div", "rad-hint", "Why these scores"));
+
+    box.addEventListener("click", function(){ box.classList.toggle("open"); updateHint(); });
+    function updateHint(){
+      box.querySelector(".rad-hint").textContent =
+        box.classList.contains("open") ? "Hide" : "Why these scores";
+    }
+
+    radEls[c.id] = { box:box, area:area, dots:dots, labs:labs, rows:rows,
                      vt:v.querySelector(".vt"), vw:v.querySelector(".vw") };
     host.appendChild(box);
   });
@@ -1210,6 +1297,13 @@ function renderCap(){
     r.vt.textContent = sc.verdict;
     r.vt.className = "vt " + (sc.verdict === "Proceeds" ? "v-comf"
                             : sc.verdict === "Caveat" ? "v-tight" : "v-no");
+    AX.forEach(function(p, i){
+      var rw = r.rows[i];
+      var v = c.ax[p.id];
+      rw.pips.forEach(function(pip, q){ pip.className = q < v ? "on" : ""; });
+      rw.row.className = "rm-row" + (v <= 2 ? " weak" : "");
+      rw.ax.className = "rm-ax" + (S.req[p.id] ? (v <= 2 ? " miss" : " req") : "");
+    });
     r.vw.textContent = sc.missing.length
       ? sc.missing.map(function(m){ return m.short.toLowerCase(); }).join(", ")
       : (sc.partial.length ? sc.partial.map(function(m){ return m.short.toLowerCase(); }).join(", ") : "all requirements met");
