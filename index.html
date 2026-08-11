@@ -122,11 +122,8 @@ section{margin-bottom:38px}
 }
 .stage h3{font-size:15.5px;font-weight:700;line-height:1.3}
 .stage p{font-size:13px;color:var(--ink-2);line-height:1.6;margin-top:8px;max-width:52ch}
-.stage .flow{
-  margin-top:11px;font-family:var(--font-num);font-size:11px;color:var(--muted);
-  line-height:1.9;
-}
-.stage .flow b{color:var(--teal);font-weight:600}
+.stage .flow{margin-top:12px;font-size:12.5px;color:var(--line-strong);line-height:1.95}
+.stage .flow b{color:var(--teal);font-weight:650}
 
 /* ---- hypothetical protocol strip ---- */
 .protocol{
@@ -200,10 +197,7 @@ section{margin-bottom:38px}
 .cap td.miss i{color:var(--amber);font-weight:700}
 .cap-v{width:19%;text-align:right;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
 .cap tr.excluded .cap-db{color:var(--muted);font-weight:450}
-.cap-legend{
-  display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;
-  font-size:11px;color:var(--muted);font-family:var(--font-num);
-}
+.cap-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:11.5px;color:var(--muted)}
 .cap-legend b{font-weight:400;font-size:14px;line-height:1;vertical-align:-1px}
 .gate{
   margin-top:16px;background:var(--surface);border:1px solid var(--line);
@@ -236,13 +230,19 @@ input[type=checkbox]{width:16px;height:16px;margin:3px 0 0;accent-color:var(--te
 .row.off .row-name strong{color:var(--muted);font-weight:450}
 .row.off .why{opacity:.5}
 .mult{
-  font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:12.5px;
-  font-weight:700;white-space:nowrap;padding-top:3px;color:var(--ink-2);
+  flex:none;padding-top:2px;display:grid;grid-template-columns:auto auto;
+  gap:2px 7px;align-items:baseline;
 }
-.mult em{display:block;font-style:normal;font-size:9.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);font-weight:700;text-align:right;margin-top:1px}
-.mult.low{color:var(--amber)}
-.row.off .mult{color:var(--muted);opacity:.45}
+.mult .mv{
+  font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;
+  color:var(--ink-2);text-align:right;white-space:nowrap;
+}
+.mult em{
+  font-style:normal;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;text-align:left;
+}
+.mult.low .mv{color:var(--amber)}
+.row.off .mult{opacity:.4}
 .why{
   font-size:12px;color:var(--ink-2);line-height:1.6;margin-top:7px;
   padding-left:28px;max-width:70ch;
@@ -278,7 +278,7 @@ input[type=checkbox]{width:16px;height:16px;margin:3px 0 0;accent-color:var(--te
   overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);
   background:var(--surface);box-shadow:var(--shadow);
 }
-.fx{border-collapse:separate;border-spacing:0;width:100%;min-width:716px;table-layout:fixed}
+.fx{border-collapse:separate;border-spacing:0;width:100%;min-width:700px;table-layout:fixed}
 .fx th,.fx td{border-bottom:1px solid var(--line);padding:10px 10px 9px}
 .fx tr:last-child th,.fx tr:last-child td{border-bottom:0}
 .fx thead th{
@@ -290,7 +290,7 @@ input[type=checkbox]{width:16px;height:16px;margin:3px 0 0;accent-color:var(--te
   display:block;font-style:normal;font-size:10px;letter-spacing:.06em;
   color:var(--muted);font-weight:600;font-family:var(--font-num);
 }
-.fx-lab{width:27%;text-align:left;font-weight:600;font-size:13.5px;color:var(--ink)}
+.fx-lab{width:22%;text-align:left;font-weight:600;font-size:13.5px;color:var(--ink)}
 .fx-lab em{
   display:block;font-style:normal;font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:2px;
@@ -313,59 +313,33 @@ input[type=checkbox]{width:16px;height:16px;margin:3px 0 0;accent-color:var(--te
 .fx tr.off .fx-d{visibility:hidden}
 .fx td.bite .fx-bar{background:var(--amber-soft)}
 .fx td.bite .fx-d{color:var(--amber);font-weight:700}
-.fx-note{
-  margin-top:9px;font-family:var(--font-num);font-size:11px;color:var(--muted);line-height:1.6;
-}
+.fx-note{margin-top:9px;font-size:11.5px;color:var(--muted);line-height:1.6;max-width:88ch}
 
-/* ---- country strip ---- */
-.cs{
-  margin-top:20px;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
+/* ---- header toggles and the conclusion rows of the same table ---- */
+.fx thead th label{
+  display:flex;flex-direction:column;align-items:flex-end;gap:2px;cursor:pointer;
 }
-.cs-head,.cs-row{
-  display:grid;
-  grid-template-columns:24px minmax(120px,150px) minmax(0,1fr) 74px 96px 52px 104px;
-  gap:12px;align-items:center;padding:11px 14px;
-  border-bottom:1px solid var(--line);border-left:3px solid transparent;
+.fx thead th input{margin:0 0 3px;width:15px;height:15px}
+.fx thead th.lead b{color:var(--green)}
+.fx thead th.off b,.fx thead th.off em{color:var(--muted);opacity:.55;font-weight:600}
+
+.fx td.dim .fx-v,.fx td.dim .fx-d{opacity:.32}
+.fx td.dim .fx-bar{background:var(--surface-2);opacity:.5}
+
+.fx tfoot th,.fx tfoot td{border-bottom:1px solid var(--line);padding:9px 10px}
+.fx tfoot tr:first-child th,.fx tfoot tr:first-child td{border-top:2px solid var(--line-strong)}
+.fx tfoot tr:last-child th,.fx tfoot tr:last-child td{border-bottom:0}
+.sum-lab{font-weight:650;font-size:12.5px;color:var(--ink)}
+.fx td.sum{
+  text-align:right;font-variant-numeric:tabular-nums;font-size:13.5px;
+  font-weight:700;color:var(--ink);
 }
-.cs-head{
-  font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
-  font-weight:700;border-bottom:1px solid var(--line-strong);
-}
-.cs-head span:nth-child(n+4){text-align:right}
-.cs-row:last-child{border-bottom:0}
-.cs-row{transition:border-left-color .25s}
-.cs-row.lead{border-left-color:var(--green)}
-.cs-row.off{background:var(--surface-2)}
-.cs-name{font-size:13.5px;font-weight:650}
-.cs-name em{
-  display:block;font-style:normal;font-family:var(--font-num);font-size:10px;
-  color:var(--muted);font-weight:600;letter-spacing:.04em;
-}
-.cs-row.off .cs-name{color:var(--muted);font-weight:450}
-.cs-track{height:10px;background:var(--surface-2);border-radius:2px;overflow:hidden}
-.cs-track i{
-  display:block;height:100%;width:calc(var(--f,0)*100%);background:var(--teal);
-  transition:width .32s cubic-bezier(.4,0,.2,1);
-}
-.cs-row.lead .cs-track i{background:var(--green)}
-.cs-n,.cs-ev,.cs-ratio{
-  font-family:var(--font-num);font-variant-numeric:tabular-nums;text-align:right;
-  font-size:13px;font-weight:650;
-}
-.cs-ev,.cs-ratio{font-weight:600;color:var(--ink-2)}
-.cs-verdict{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;text-align:right}
+.fx td.sum.dim{color:var(--muted);opacity:.45;font-weight:450}
+.fx td.sum-v{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:800}
 .v-comf{color:var(--green)}
 .v-work{color:var(--teal)}
 .v-tight{color:var(--amber)}
 .v-no{color:var(--amber)}
-.cs-row.off .cs-n,.cs-row.off .cs-ev,.cs-row.off .cs-ratio,.cs-row.off .cs-verdict{opacity:.4}
-@media (max-width:820px){
-  .cs-head{display:none}
-  .cs-row{grid-template-columns:24px 1fr auto;row-gap:7px}
-  .cs-track{grid-column:1/-1}
-  .cs-ev,.cs-ratio,.cs-verdict{text-align:left}
-}
 
 /* ---- downstream analysis panels (modules 4, 6, 7, 8) ---- */
 .panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -459,7 +433,7 @@ input[type=checkbox]{width:16px;height:16px;margin:3px 0 0;accent-color:var(--te
 details.note{margin-top:14px}
 details.note summary{
   font-size:11.5px;color:var(--muted);cursor:pointer;list-style:none;
-  display:inline-flex;align-items:center;gap:5px;font-family:var(--font-num);
+  display:inline-flex;align-items:center;gap:5px;
 }
 details.note summary::-webkit-details-marker{display:none}
 details.note summary::before{content:"＋";font-family:var(--font-num);color:var(--teal)}
@@ -519,9 +493,12 @@ table.par td:first-child{font-family:var(--font-ui)}
 /* ---- module list ---- */
 .chip{
   font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;
-  color:var(--teal);border:1px solid var(--teal);border-radius:2px;
-  padding:1px 6px;margin-left:8px;vertical-align:2px;white-space:nowrap;
+  color:var(--teal);border:1px solid var(--teal);border-radius:2px;background:none;
+  padding:2px 7px;margin-left:8px;vertical-align:2px;white-space:nowrap;
+  cursor:pointer;font-family:inherit;transition:background .12s,color .12s;
 }
+.chip:hover{background:var(--teal);color:#fff}
+.chip::after{content:" ↑";letter-spacing:0}
 .mod-num{
   font-family:var(--font-num);font-size:12px;color:var(--teal);font-weight:700;
   flex:none;width:18px;padding-top:2px;
@@ -695,8 +672,6 @@ footer{
         </div>
         <p class="fx-note" id="fx-note"></p>
 
-        <div class="cs" id="cs"></div>
-
         <details class="note">
           <summary>Where every number on this page comes from</summary>
           <div class="notebody">
@@ -816,9 +791,12 @@ footer{
    These are the Stage 1 screening answers, and they are what explains the
    Stage 2 retention fractions further down. */
 var COUNTRIES = [
-  { id:"tw", name:"Taiwan",    db:"NHIRD",     covered: 23.6e6, base:  99000,
+  { id:"tw", name:"Taiwan",    db:"NHIRD",     disp:"Taiwan NHIRD", covered: 23.6e6, base:  99000,
     cap:{scale:2, dx:2, rx:2, lab:1, stage:0, hosp:2, death:2, long:2},
     soc:[42,28,18,12], ttn:14, hr:0.78, dist:0.14 },
+  { id:"cg", name:"Taiwan",    db:"CGRD",      disp:"Taiwan CGRD",  covered:  1.5e6, base:   6400,
+    cap:{scale:0, dx:2, rx:2, lab:2, stage:1, hosp:2, death:1, long:1},
+    soc:[45,26,19,10], ttn:15, hr:0.76, dist:0.26 },
   { id:"kr", name:"Korea",     db:"NHIS-NHID", covered: 51.4e6, base: 162500,
     cap:{scale:2, dx:2, rx:2, lab:2, stage:0, hosp:2, death:2, long:2},
     soc:[61,18,12, 9], ttn:11, hr:0.82, dist:0.31 },
@@ -921,35 +899,35 @@ var PRESETS = [
 ];
 
 var MODULES = [
-  { n:1, stage:"Stage 1", demo:true, title:"Multi-country feasibility assessment",
+  { n:1, stage:"Stage 1", demo:"#cap", title:"Multi-country feasibility assessment",
     want:"Which AsPEN databases can answer this at all?",
     does:"Assess each database for population coverage, drug and exposure capture, diagnosis coding, endpoint availability, laboratory values, mortality linkage and follow-up completeness.",
     gives:"Database feasibility matrix and a shortlist of databases that proceed." },
-  { n:2, stage:"Stage 2", demo:true, title:"Trial population and eligibility mapping",
+  { n:2, stage:"Stage 2", demo:"#crit", title:"Trial population and eligibility mapping",
     want:"How many patients does the protocol actually find?",
     does:"Apply the proposed inclusion and exclusion criteria to real-world data, build the patient funnel step by step, and test alternative operational definitions of each criterion.",
     gives:"Eligible N, attrition table and country-specific recruitment pool." },
-  { n:3, stage:"Stage 2", demo:true, title:"Trial design and event-rate study",
+  { n:3, stage:"Stage 2", demo:"#fx", title:"Trial design and event-rate study",
     want:"How many patients, followed how long, before the endpoint reads out?",
     does:"Estimate incidence and prevalence, background event rates, endpoint frequency, follow-up distribution, competing events and loss to follow-up.",
     gives:"Trial-planning parameters by database and country." },
-  { n:4, stage:"Stage 2", title:"Treatment pathway and standard-of-care analysis",
+  { n:4, stage:"Stage 2", demo:"#soc", title:"Treatment pathway and standard-of-care analysis",
     want:"What is clinical practice actually doing today?",
     does:"Characterise treatment initiation, line sequencing, switching, discontinuation, combination therapy and time to treatment.",
     gives:"Standard-of-care and treatment-pathway evidence for comparator selection." },
-  { n:5, stage:"Stage 2", demo:true, title:"Scenario analyses for trial design",
+  { n:5, stage:"Stage 2", demo:"#fx", title:"Scenario analyses for trial design",
     want:"What happens if we change an inclusion criterion?",
     does:"Compare stricter against looser eligibility, alternative washout windows, disease-severity thresholds, prior-treatment requirements and endpoint definitions.",
     gives:"Scenario table showing N, event rates and cohort characteristics side by side." },
-  { n:6, stage:"Stage 2", title:"Study-based comparative analyses",
+  { n:6, stage:"Stage 2", demo:"#forest", title:"Study-based comparative analyses",
     want:"Is the planned comparator defensible, and is the expected effect realistic?",
     does:"Run an active-comparator cohort study, or a target trial emulation where the question warrants it, handling switching and adherence with IPCW or clone-censor-weight methods.",
     gives:"Comparative effectiveness and safety estimates." },
-  { n:7, stage:"Stage 2", title:"External and historical comparator",
+  { n:7, stage:"Stage 2", demo:"#bal", title:"External and historical comparator",
     want:"Can real-world data support a single-arm trial or provide a benchmark?",
     does:"Characterise the external control population, align it to the trial eligibility criteria, assess baseline comparability and outcomes, and weight the external comparator where appropriate.",
     gives:"External-control feasibility assessment and estimates." },
-  { n:8, stage:"Stage 2", title:"Cross-country heterogeneity and transportability",
+  { n:8, stage:"Stage 2", demo:"#tp", title:"Cross-country heterogeneity and transportability",
     want:"Can these countries sit inside one trial strategy?",
     does:"Produce country-specific estimates, quantify population differences and clinical-practice variation, test heterogeneity and assess transportability to the intended target population.",
     gives:"Country-selection guidance and regional interpretation." }
@@ -1037,7 +1015,6 @@ function sig3(n){
 function fmt(n){ return sig3(n).toLocaleString("en-US"); }
 function pct1(x){ return (x*100).toFixed(1) + "%"; }
 function pct0(x){ return Math.round(x*100) + "%"; }
-function mult2(x){ return x.toFixed(2); }
 function el(tag, cls, txt){
   var e = document.createElement(tag);
   if(cls) e.className = cls;
@@ -1060,9 +1037,10 @@ function seg(host, items, current, onPick){
    ============================================================ */
 var critHost = document.getElementById("crit");
 var fxTable  = document.getElementById("fx");
-var csHost   = document.getElementById("cs");
-var cell = {};   /* cell[stepId][countryId] = <td> */
+var cell = {};      /* cell[stepId][countryId] = <td> */
+var sumCell = {};   /* sumCell[rowId][countryId] = <td> */
 var colHead = {};
+function dname(c){ return c.disp || c.name; }
 
 var capCell = {};   /* capCell[capId][countryId] = <td> */
 
@@ -1214,8 +1192,17 @@ function buildMatrix(){
   hr.appendChild(h0);
   COUNTRIES.forEach(function(c){
     var th = document.createElement("th");
-    th.appendChild(el("b", null, c.name));
-    th.appendChild(el("em", null, c.db));
+    var lab = el("label");
+    var cb = document.createElement("input");
+    cb.type = "checkbox"; cb.checked = !!S.ctry[c.id];
+    cb.setAttribute("aria-label", "Include " + (c.disp || c.name));
+    cb.addEventListener("change", function(){
+      S.ctry[c.id] = cb.checked ? 1 : 0; renderAll();
+    });
+    lab.appendChild(cb);
+    lab.appendChild(el("b", null, c.name));
+    lab.appendChild(el("em", null, c.db));
+    th.appendChild(lab);
     colHead[c.id] = th;
     hr.appendChild(th);
   });
@@ -1249,35 +1236,27 @@ function buildMatrix(){
     tbody.appendChild(tr);
   });
   fxTable.appendChild(tbody);
-}
 
-function buildStrip(){
-  csHost.textContent = "";
-  var head = el("div", "cs-head");
-  ["", "Country", "Eligible pool", "Eligible N", "Expected events", "Pool", "Verdict"]
-    .forEach(function(t){ head.appendChild(el("span", null, t)); });
-  csHost.appendChild(head);
-  COUNTRIES.forEach(function(c){
-    var row = el("div", "cs-row"); row.dataset.id = c.id;
-    var cb = document.createElement("input");
-    cb.type = "checkbox"; cb.checked = !!S.ctry[c.id];
-    cb.setAttribute("aria-label", "Include " + c.name);
-    cb.addEventListener("change", function(){
-      S.ctry[c.id] = cb.checked ? 1 : 0; render(); writeHash();
+  /* the conclusion rides in the same columns as the funnel that produced it */
+  var tfoot = document.createElement("tfoot");
+  [ {id:"alt",     label:"", kind:""},
+    {id:"ratio",   label:"Against required enrolment", kind:"Feasibility"},
+    {id:"verdict", label:"Screening verdict", kind:""} ].forEach(function(sr){
+    var tr = document.createElement("tr");
+    tr.dataset.sum = sr.id;
+    var th = el("th", "fx-lab");
+    th.appendChild(el("span", "sum-lab", sr.label));
+    if(sr.kind) th.appendChild(el("em", null, sr.kind));
+    tr.appendChild(th);
+    sumCell[sr.id] = {};
+    COUNTRIES.forEach(function(c){
+      var td = el("td", "sum");
+      sumCell[sr.id][c.id] = td;
+      tr.appendChild(td);
     });
-    row.appendChild(cb);
-    var nm = el("span", "cs-name", c.name);
-    nm.appendChild(el("em", null, c.db));
-    row.appendChild(nm);
-    var track = el("span", "cs-track");
-    track.appendChild(el("i"));
-    row.appendChild(track);
-    row.appendChild(el("span", "cs-n"));
-    row.appendChild(el("span", "cs-ev"));
-    row.appendChild(el("span", "cs-ratio"));
-    row.appendChild(el("span", "cs-verdict"));
-    csHost.appendChild(row);
+    tfoot.appendChild(tr);
   });
+  fxTable.appendChild(tfoot);
 }
 
 function buildModules(){
@@ -1290,7 +1269,17 @@ function buildModules(){
     var name = el("div", "row-name");
     name.appendChild(el("span", "flag", m.stage));
     var strong = el("strong", null, m.title);
-    if(m.demo) strong.appendChild(el("span", "chip", "Demonstrated above"));
+    if(m.demo){
+      var chip = el("button", "chip no-print", "Shown above");
+      chip.type = "button";
+      chip.addEventListener("click", function(ev){
+        ev.preventDefault();
+        var t = document.querySelector(m.demo);
+        if(t) (t.closest(".pbox") || t.closest(".fx-wrap") || t.closest(".cap-wrap") || t)
+                .scrollIntoView({ behavior:"smooth", block:"center" });
+      });
+      strong.appendChild(chip);
+    }
     name.appendChild(strong);
     top.appendChild(name);
     row.appendChild(top);
@@ -1354,32 +1343,42 @@ function render(){
   net.rows.forEach(function(f){ byId[f.c.id] = f; });
   var anyCountry = net.rows.length > 0;
 
-  /* --- criteria rows: show the events multiplier --- */
-  CRITERIA.forEach(function(k){
+  /* --- criteria rows: what this line of the protocol costs, in people and events --- */
+  CRITERIA.forEach(function(k, ki){
     var row = critHost.querySelector('.row[data-id="' + k.id + '"]');
     var on = !!S.crit[k.id];
     row.classList.toggle("off", !on);
     row.querySelector("input").checked = on;
     var host = row.querySelector('[data-role="mult"]');
     host.textContent = "";
-    if(anyCountry){
-      var lo = null, hi = null;
-      net.rows.forEach(function(f){
-        var m = k.keep[f.c.id] * k.rr[S.endpoint][f.c.id];
-        if(lo === null || m < lo) lo = m;
-        if(hi === null || m > hi) hi = m;
-      });
-      host.appendChild(document.createTextNode(
-        lo === hi ? mult2(lo) : mult2(lo) + "–" + mult2(hi)));
-      host.appendChild(el("em", null, "events ×"));
-      host.classList.toggle("low", lo < 0.55);
+    host.classList.remove("low");
+    if(!anyCountry) return;
+    var beforeN = 0, afterN = 0, beforeE = 0, afterE = 0;
+    net.rows.forEach(function(f){
+      beforeN += f.steps[ki].n;     beforeE += f.steps[ki].events;
+      afterN  += f.steps[ki+1].n;   afterE  += f.steps[ki+1].events;
+    });
+    function pair(v, lbl){
+      host.appendChild(el("span", "mv", on ? "−" + fmt(v) : "—"));
+      host.appendChild(el("em", null, lbl));
     }
+    pair(beforeN - afterN, "patients");
+    pair(beforeE - afterE, "events");
+    if(on && beforeE > 0 && (beforeE-afterE)/beforeE >= 0.25) host.classList.add("low");
   });
 
-  /* --- funnel matrix --- */
+  /* --- the one table: funnel above, conclusion below, same columns --- */
+  var isEv = S.view === "events";
+  var leadId = null, leadV = -1;
+  net.rows.forEach(function(f){ if(f.n > leadV){ leadV = f.n; leadId = f.c.id; } });
+
   COUNTRIES.forEach(function(c){
-    colHead[c.id].style.display = S.ctry[c.id] ? "" : "none";
+    var on = !!S.ctry[c.id];
+    colHead[c.id].classList.toggle("off", !on);
+    colHead[c.id].classList.toggle("lead", on && c.id === leadId);
+    colHead[c.id].querySelector("input").checked = on;
   });
+
   var stepIds = ["base"].concat(CRITERIA.map(function(k){ return k.id; }));
   stepIds.forEach(function(sid, idx){
     var tr = fxTable.querySelector('tr[data-step="' + sid + '"]');
@@ -1387,55 +1386,47 @@ function render(){
     tr.classList.toggle("off", !on);
     COUNTRIES.forEach(function(c){
       var td = cell[sid][c.id];
-      td.style.display = S.ctry[c.id] ? "" : "none";
-      var f = byId[c.id];
-      if(!f){ return; }
+      var live = !!S.ctry[c.id];
+      td.classList.toggle("dim", !live);
+      var f = live ? byId[c.id] : funnel(c);   /* still show it, just greyed */
       var st = f.steps[idx];
-      var isEv = S.view === "events";
       var value = isEv ? st.events : st.n;
       var denom = isEv ? f.baseEvents : f.base;
       var drop  = isEv ? st.dropE : st.dropN;
       td.style.setProperty("--f", denom > 0 ? (value/denom) : 0);
       td.querySelector(".fx-v").textContent = fmt(value);
       td.querySelector(".fx-d").textContent =
-        sid === "base" ? (isEv ? "expected events" : "100%") : (on ? "−" + pct0(drop) : "not applied");
-      td.classList.toggle("bite", on && sid !== "base" && drop >= 0.40);
+        sid === "base" ? (isEv ? "expected events" : "starting point") : (on ? "−" + pct0(drop) : "not applied");
+      td.classList.toggle("bite", live && on && sid !== "base" && drop >= 0.40);
     });
   });
-  document.getElementById("fx-note").textContent = S.view === "events"
-    ? "Bars show expected events remaining, each column scaled to its own starting point. Counts rounded to three significant figures; the arithmetic is exact, the inputs are invented."
-    : "Bars show patients remaining, each column scaled to its own starting point. Counts rounded to three significant figures; the arithmetic is exact, the inputs are invented.";
 
-  /* --- country strip --- */
-  var maxN = 0;
-  net.rows.forEach(function(f){ if(f.n > maxN) maxN = f.n; });
-  var leadId = null, leadV = -1;
-  net.rows.forEach(function(f){ if(f.n > leadV){ leadV = f.n; leadId = f.c.id; } });
+  /* summary rows */
+  fxTable.querySelector('tr[data-sum="alt"] .sum-lab').textContent =
+    isEv ? "Eligible patients" : "Expected events in 1 year";
   COUNTRIES.forEach(function(c){
-    var row = csHost.querySelector('.cs-row[data-id="' + c.id + '"]');
-    var on = !!S.ctry[c.id];
-    row.classList.toggle("off", !on);
-    row.classList.toggle("lead", on && c.id === leadId);
-    row.querySelector("input").checked = on;
-    var f = byId[c.id];
-    if(!f){
-      row.querySelector(".cs-track i").style.setProperty("--f", 0);
-      row.querySelector(".cs-n").textContent = "—";
-      row.querySelector(".cs-ev").textContent = "—";
-      row.querySelector(".cs-ratio").textContent = "—";
-      row.querySelector(".cs-verdict").textContent = "";
-      return;
-    }
-    row.querySelector(".cs-track i").style.setProperty("--f", maxN > 0 ? f.n/maxN : 0);
-    row.querySelector(".cs-n").textContent = fmt(f.n);
-    row.querySelector(".cs-ev").textContent = fmt(f.events) + " ev";
+    var live = !!S.ctry[c.id];
+    var f = live ? byId[c.id] : funnel(c);
     var ratio = net.required > 0 ? f.n/net.required : 0;
-    row.querySelector(".cs-ratio").textContent = ratio.toFixed(1) + "×";
     var v = verdict(ratio);
-    var vn = row.querySelector(".cs-verdict");
-    vn.textContent = v.t;
-    vn.className = "cs-verdict " + v.c;
+
+    var a = sumCell.alt[c.id];
+    a.textContent = fmt(isEv ? f.n : f.events);
+    a.classList.toggle("dim", !live);
+
+    var r = sumCell.ratio[c.id];
+    r.textContent = live ? ratio.toFixed(1) + "×" : "—";
+    r.classList.toggle("dim", !live);
+
+    var w = sumCell.verdict[c.id];
+    w.textContent = live ? v.t : "excluded";
+    w.className = "sum sum-v " + (live ? v.c : "") + (live ? "" : " dim");
   });
+
+  document.getElementById("fx-note").textContent = (isEv
+    ? "Bars show expected events remaining, each column scaled to its own starting point. "
+    : "Bars show patients remaining, each column scaled to its own starting point. ")
+    + "Untick a database in the header to drop it from the network totals. Counts are rounded to three significant figures; the arithmetic is exact, the inputs are invented.";
 
   renderCap();
   renderCard(net);
@@ -1501,7 +1492,7 @@ function renderCallout(net){
     btn.type = "button";
     btn.addEventListener("click", function(){
       S.crit.baseline = 0; S.nudged = true; render(); writeHash();
-      document.getElementById("cs").scrollIntoView({ behavior:"smooth", block:"center" });
+      document.querySelector(".fx-wrap").scrollIntoView({ behavior:"smooth", block:"center" });
     });
     host.appendChild(btn);
     return;
@@ -1525,7 +1516,7 @@ function renderCallout(net){
     p2.appendChild(document.createTextNode("Dropping the baseline-data requirement changes nothing clinical. "));
     if(best){
       p2.appendChild(el("b", null,
-        best.f.c.name + "'s eligible pool goes from " + fmt(best.b.n) + " to " + fmt(best.f.n) +
+        dname(best.f.c) + "'s eligible pool goes from " + fmt(best.b.n) + " to " + fmt(best.f.n) +
         ", while its one-year risk moves only from " + pct1(best.b.rate) + " to " + pct1(best.f.rate) + "."));
       p2.appendChild(document.createTextNode(
         " Across the network the pool rises from " + fmt(withReq.n) + " to " + fmt(net.n) +
@@ -1553,7 +1544,7 @@ function renderPanels(net){
   soc.textContent = "";
   rows.forEach(function(f){
     var r = el("div", "soc-row");
-    r.appendChild(el("span", "soc-name", f.c.name));
+    r.appendChild(el("span", "soc-name", dname(f.c)));
     var bar = el("div", "soc-bar");
     f.c.soc.forEach(function(v, i){
       var seg = el("i", "g" + i);
@@ -1580,8 +1571,8 @@ function renderPanels(net){
     var hiA = rows.slice().sort(function(a,b){ return b.c.soc[0]-a.c.soc[0]; })[0];
     var loA = rows.slice().sort(function(a,b){ return a.c.soc[0]-b.c.soc[0]; })[0];
     socNote.appendChild(document.createTextNode("Class A is first-line for "));
-    socNote.appendChild(el("b", null, hiA.c.soc[0] + "% of patients in " + hiA.c.name));
-    socNote.appendChild(document.createTextNode(" but " + loA.c.soc[0] + "% in " + loA.c.name +
+    socNote.appendChild(el("b", null, hiA.c.soc[0] + "% of patients in " + dname(hiA.c)));
+    socNote.appendChild(document.createTextNode(" but " + loA.c.soc[0] + "% in " + dname(loA.c) +
       ". An active-comparator trial against class A therefore means a different thing in each country, and the same protocol sentence buys a different comparison."));
   }
 
@@ -1590,7 +1581,7 @@ function renderPanels(net){
   host.textContent = "";
   var pts = rows.map(function(f){
     var se = f.events > 0 ? 2/Math.sqrt(f.events) : 1;
-    return { name:f.c.name, hr:f.c.hr, se:se,
+    return { name:dname(f.c), hr:f.c.hr, se:se,
              lo:f.c.hr*Math.exp(-1.96*se), hi:f.c.hr*Math.exp(1.96*se), w:1/(se*se) };
   });
   var pooled = null;
@@ -1674,7 +1665,7 @@ function renderPanels(net){
   var nearest = rows.slice().sort(function(a,b){ return a.c.dist-b.c.dist; })[0];
   rows.forEach(function(f){
     var r = el("div", "tp-row" + (nearest && f.c.id === nearest.c.id ? " near" : ""));
-    r.appendChild(el("span", "tp-name", f.c.name));
+    r.appendChild(el("span", "tp-name", dname(f.c)));
     var t = el("div", "tp-track");
     var i = el("i"); i.style.setProperty("--f", Math.min(1, f.c.dist/maxD)); t.appendChild(i);
     r.appendChild(t);
@@ -1685,9 +1676,9 @@ function renderPanels(net){
   tn.textContent = "";
   if(nearest && rows.length > 1){
     var biggest = rows.slice().sort(function(a,b){ return b.n-a.n; })[0];
-    tn.appendChild(el("b", null, nearest.c.name + "'s cohort sits closest to the intended target population"));
+    tn.appendChild(el("b", null, dname(nearest.c) + "'s cohort sits closest to the intended target population"));
     if(biggest.c.id !== nearest.c.id){
-      tn.appendChild(document.createTextNode(", while " + biggest.c.name +
+      tn.appendChild(document.createTextNode(", while " + dname(biggest.c) +
         " offers the largest pool. Recruitment and transportability pull in different directions, and the country set has to answer both."));
     } else {
       tn.appendChild(document.createTextNode(", and it also offers the largest pool — an unusually easy country decision."));
@@ -1736,9 +1727,9 @@ function renderQA(net){
   var items = [
     { q:"Where should we run the trial?",
       a:function(){
-        var s = "In this illustration " + top.c.name + " contributes the largest eligible pool at " + fmt(top.n) +
-                " patients, and " + bottom.c.name + " the smallest at " + fmt(bottom.n) + ". ";
-        if(ratioB < 1.5) s += bottom.c.name + "'s entire eligible population is " + ratioB.toFixed(2) +
+        var s = "In this illustration " + dname(top.c) + " contributes the largest eligible pool at " + fmt(top.n) +
+                " patients, and " + dname(bottom.c) + " the smallest at " + fmt(bottom.n) + ". ";
+        if(ratioB < 1.5) s += dname(bottom.c) + "'s entire eligible population is " + ratioB.toFixed(2) +
                 " times the trial's required enrolment, so it cannot carry the study alone even if every eligible patient enrolled — it contributes sites, not a stand-alone cohort.";
         else s += "Country selection follows the pool-to-trial ratios in the table above rather than raw population size.";
         return s;
@@ -1853,7 +1844,6 @@ buildReqs();
 buildCapMatrix();
 buildCriteria();
 buildMatrix();
-buildStrip();
 buildModules();
 renderAll();
 })();
